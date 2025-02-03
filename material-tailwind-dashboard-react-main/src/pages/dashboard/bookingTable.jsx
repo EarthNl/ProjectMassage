@@ -3,7 +3,7 @@ import {
   CardHeader,
   CardBody,
   Typography,
-  Avatar,
+  IconButton,
   Chip,
 } from "@material-tailwind/react";
 
@@ -22,7 +22,7 @@ export function BookingTable() {
           <table className="w-full min-w-[640px] table-auto">
             <thead>
               <tr>
-                {["author", "function", "status", "employed", ""].map((el) => (
+                {["รหัส", "วันที่", "เวลา", "สถานะ", ""].map((el) => (
                   <th
                     key={el}
                     className="border-b border-blue-gray-50 py-3 px-5 text-left"
@@ -39,7 +39,7 @@ export function BookingTable() {
             </thead>
             <tbody>
               {authorsTableData.map(
-                ({ img, name, email, job, online, date }, key) => {
+                ({ id,  online, date }, key) => {
                   const className = `py-3 px-5 ${
                     key === authorsTableData.length - 1
                       ? ""
@@ -47,9 +47,9 @@ export function BookingTable() {
                   }`;
 
                   return (
-                    <tr key={name}>
+                    <tr key={id}>
                       <td className={className}>
-                        <div className="flex items-center gap-4">
+                        {/* <div className="flex items-center gap-4">
                           <Avatar src={img} alt={name} size="sm" variant="rounded" />
                           <div>
                             <Typography
@@ -63,14 +63,19 @@ export function BookingTable() {
                               {email}
                             </Typography>
                           </div>
-                        </div>
+                        </div> */}
+                        <Typography className="text-xs font-semibold text-blue-gray-600">
+                          {id}
+                        </Typography>
                       </td>
                       <td className={className}>
                         <Typography className="text-xs font-semibold text-blue-gray-600">
-                          {job[0]}
+                          {date}
                         </Typography>
-                        <Typography className="text-xs font-normal text-blue-gray-500">
-                          {job[1]}
+                      </td>
+                      <td className={className}>
+                        <Typography className="text-xs font-semibold text-blue-gray-600">
+                          {date}
                         </Typography>
                       </td>
                       <td className={className}>
@@ -81,29 +86,28 @@ export function BookingTable() {
                           className="py-0.5 px-2 text-[11px] font-medium w-fit"
                         />
                       </td>
+
                       <td className={className}>
-                        <Typography className="text-xs font-semibold text-blue-gray-600">
-                          {date}
-                        </Typography>
-                      </td>
-                      <td className={className}>
-                        <Typography
-                          as="a"
-                          href="#"
-                          className="text-xs font-semibold text-blue-gray-600"
-                        >
-                          Edit
-                        </Typography>
+                        <div className="flex gap-4">
+                        <IconButton color="blue">
+                            <i className="fas fa-eye" />
+                          </IconButton>
+                          <IconButton as="a" href="#" color="amber">
+                            <i className="fas fa-pencil" />
+                          </IconButton>
+                          <IconButton color="red">
+                            <i className="fas fa-trash" />
+                          </IconButton>
+                        </div>
                       </td>
                     </tr>
                   );
-                }
+                },
               )}
             </tbody>
           </table>
         </CardBody>
       </Card>
- 
     </div>
   );
 }
