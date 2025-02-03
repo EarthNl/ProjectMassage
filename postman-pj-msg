@@ -1,0 +1,232 @@
+{
+	"info": {
+		"_postman_id": "5f6e4974-70b8-4133-a8ea-1c6916d36e84",
+		"name": "ProjectMassage",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23681033"
+	},
+	"item": [
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user_name\":\"sathaporn\",\r\n    \"user_pass\":\"1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:49231/project-massage/api/user/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "49231",
+							"path": [
+								"project-massage",
+								"api",
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getbyid",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user_id\":1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:49231/project-massage/api/user/getbyid",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "49231",
+							"path": [
+								"project-massage",
+								"api",
+								"user",
+								"getbyid"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "authen",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user_name\":\"sathaporn\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:49231/project-massage/api/user/authen",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "49231",
+							"path": [
+								"project-massage",
+								"api",
+								"user",
+								"authen"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"page\":1,\r\n    \"pageSize\":10,\r\n    \"search\":\"\",\r\n    \"user_role\":\"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:49231/project-massage/api/user/get",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "49231",
+							"path": [
+								"project-massage",
+								"api",
+								"user",
+								"get"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "insert",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user_name\":\"choki\",\r\n    \"user_pass\":\"1234\",\r\n    \"user_email\":\"a@a.com\",\r\n    \"user_phone\":\"0987024170\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:49231/project-massage/api/user/insert",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "49231",
+							"path": [
+								"project-massage",
+								"api",
+								"user",
+								"insert"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user_id\":2,\r\n    \"user_name\":\"chokk\",\r\n    \"user_pass\":\"1234\",\r\n    \"user_email\":\"c@n.com\",\r\n    \"user_phone\":\"0987024170\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:49231/project-massage/api/user/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "49231",
+							"path": [
+								"project-massage",
+								"api",
+								"user",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user_id\":1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:49231/project-massage/api/user/delete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "49231",
+							"path": [
+								"project-massage",
+								"api",
+								"user",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
