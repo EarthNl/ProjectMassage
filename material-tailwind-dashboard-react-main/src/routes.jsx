@@ -2,11 +2,10 @@ import {
   HomeIcon,
   UserCircleIcon,
   TableCellsIcon,
-  InformationCircleIcon,
   ServerStackIcon,
   RectangleStackIcon,
 } from "@heroicons/react/24/solid";
-import { Home, Profile, Tables, Notifications } from "@/pages/dashboard";
+import { Home, Profile, Tables,BookingTable,UserTable,ServiceTable,StaffTable,ReviewTable } from "@/pages/dashboard";
 import { SignIn, SignUp } from "@/pages/auth";
 
 const icon = {
@@ -20,28 +19,48 @@ export const routes = [
     pages: [
       {
         icon: <HomeIcon {...icon} />,
-        name: "dashboard",
+        name: "หน้าหลัก",
         path: "/home",
         element: <Home />,
       },
       {
         icon: <UserCircleIcon {...icon} />,
-        name: "profile",
+        name: "โปรไฟล์",
         path: "/profile",
         element: <Profile />,
       },
       {
         icon: <TableCellsIcon {...icon} />,
-        name: "tables",
-        path: "/tables",
-        element: <Tables />,
+        name: "ตารางการจอง",
+        path: "/bookingtable",
+        element: <BookingTable />,
       },
       {
-        icon: <InformationCircleIcon {...icon} />,
-        name: "notifications",
-        path: "/notifications",
-        element: <Notifications />,
+        icon: <TableCellsIcon {...icon} />,
+        name: "ตารางผู้ใช้งาน",
+        path: "/usertable",
+        element: <UserTable />,
       },
+      {
+        icon: <TableCellsIcon {...icon} />,
+        name: "ตารางบริการ",
+        path: "/servicetable",
+        element: <ServiceTable />,
+      },
+      {
+        icon: <TableCellsIcon {...icon} />,
+        name: "ตารางพนักงาน",
+        path: "/stafftable",
+        element: <StaffTable />,
+      },
+      {
+        icon: <TableCellsIcon {...icon} />,
+        name: "ตารางรีวิว",
+        path: "/reviewtable",
+        element: <ReviewTable />,
+      },
+     
+     
     ],
   },
   {
