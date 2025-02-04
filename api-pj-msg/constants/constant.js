@@ -1,6 +1,7 @@
 var fs = require("fs");
 const path = require("path");
 const crc = require('crc');
+
 //------------------------------------------------------------------------------------------------------------------------------------------
 function addfile(file,filePath) {
   fs.rename(file.path, filePath, (err) => {
@@ -12,16 +13,30 @@ function addfile(file,filePath) {
 }
 
 function addfileBase64(file,filePath) {
-  const base64Data = file.content.split(";base64,").pop();
-
+  
+  const base64Data = file.split(";base64,").pop();
+  const extension = getFileExtension(file)
   // Write the image file to disk
-  fs.writeFile(filePath, base64Data, { encoding: "base64" }, (err) => {
+  fs.writeFile(`${filePath}.${extension}`, base64Data, { encoding: "base64" }, (err) => {
     if (err) {
       console.error(`Error saving image ${file.name}:`, err);
       return;
     }
     console.log(`Image saved: ${filePath}`);
   });
+  return `${filePath}.${extension}`
+}
+
+function getFileExtension(base64Data) {
+  const match = base64Data.match(/^data:(.+);base64,/);
+  if (match && match[1]) {
+    const ext = match[1].split("/")[1];
+    let newExt = ext;
+    if (ext === "jpeg") {
+      return (newExt = "jpg");
+    }
+    return newExt;
+  }
 }
 
 //remove file in folder
@@ -41,13 +56,19 @@ function padCRC32(input,text) {
   // Compute the CRC32 checksum
   const checksum = crc.crc32(input).toString(10); // Convert to base 10
   // Pad the checksum to 13 characters with leading zeros
-  return checksum.padStart(13, text);
+  if(text){
+    return checksum.padStart(13,text);
+  }
+  return checksum.padStart(10,'0');
 }
+
+
 
 
 module.exports = {
   addfileBase64,
   addfile,
   removefile,
-  padCRC32
+  padCRC32,
+  getFileExtension
 } 

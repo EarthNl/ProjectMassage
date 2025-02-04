@@ -3,7 +3,7 @@ const router = express.Router();
 var cors = require("cors");
 var bodyParser = require("body-parser");
 const apiUser = require("./api-user");
-// const apiMember = require("./api-member");
+const apiStaff = require("./api-staff");
 // const apiTravel = require("./api-travel");
 // const apiReview = require("./api-review");
 // const apiTravelType = require("./api-travel-type");
@@ -31,6 +31,7 @@ router.use("/uploads", express.static("uploads"));
 
 
 router.use("/user", apiUser);
+router.use("/staff", apiStaff);
 // router.use("/member", apiMember);
 // router.use("/travel", apiTravel);
 // router.use("/review", apiReview);
