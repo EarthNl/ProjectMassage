@@ -4,7 +4,6 @@ import {
   Avatar,
   Typography,
 } from "@material-tailwind/react";
-import { Link } from "react-router-dom";
 import { ProfileInfoCard } from "@/widgets/cards";
 
 export function Profile() {

@@ -4,10 +4,23 @@ import {
   CardBody,
   Typography,
   IconButton,
+  Dialog,
+  DialogHeader,
+  DialogBody,
+  DialogFooter,
+  Button,
+  Input,
+  Textarea,
 } from "@material-tailwind/react";
 import { authorsTableData } from "@/data";
+import { XMarkIcon } from "@heroicons/react/24/outline";
+import React from "react";
 
 export function ReviewTable() {
+  const [readOpen, setReadOpen] = React.useState(false);
+  const readHandleOpen = () => setReadOpen(!readOpen);
+  const [deletOpen, setDeleteOpen] = React.useState(false);
+  const deleteHandleOpen = () => setDeleteOpen(!deletOpen);
   return (
     <div className="mt-12 mb-8 flex flex-col gap-12">
       <Card>
@@ -15,7 +28,6 @@ export function ReviewTable() {
           <Typography variant="h6" color="white">
             ตารางรีวิว
           </Typography>
-          
         </CardHeader>
         <CardBody className="overflow-x-scroll px-0 pt-0 pb-2">
           <table className="w-full min-w-[640px] table-auto">
@@ -69,13 +81,7 @@ export function ReviewTable() {
                       </td>
                       <td className={className}>
                         <div className="flex gap-4">
-                          <IconButton color="blue">
-                            <i className="fas fa-eye" />
-                          </IconButton>
-                          <IconButton as="a" href="#" color="amber">
-                            <i className="fas fa-pencil" />
-                          </IconButton>
-                          <IconButton color="red">
+                          <IconButton color="red" onClick={deleteHandleOpen}>
                             <i className="fas fa-trash" />
                           </IconButton>
                         </div>
@@ -88,6 +94,30 @@ export function ReviewTable() {
           </table>
         </CardBody>
       </Card>
+
+      {/* delete modal */}
+      <Dialog open={deletOpen} handler={deleteHandleOpen} size="xs">
+        <DialogHeader>ลบข้อมูล</DialogHeader>
+        <DialogBody>คุณแน่ใจแล้วใช่ไหมที่จะลบข้อมูลที่เลือก</DialogBody>
+        <DialogFooter>
+          <Button
+            variant="text"
+            color="red"
+            onClick={deleteHandleOpen}
+            className="mr-1"
+          >
+            <span>ลบ</span>
+          </Button>
+          <Button
+            variant="text"
+            color="gray"
+            onClick={deleteHandleOpen}
+            className="mr-1"
+          >
+            <span>ยกเลิก</span>
+          </Button>
+        </DialogFooter>
+      </Dialog>
     </div>
   );
 }

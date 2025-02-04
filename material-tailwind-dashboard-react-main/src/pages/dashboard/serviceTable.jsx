@@ -3,13 +3,28 @@ import {
   CardHeader,
   CardBody,
   Typography,
-  Avatar,
-  Chip,
+  Textarea,
   IconButton,
+  Dialog,
+  DialogHeader,
+  DialogBody,
+  DialogFooter,
+  Button,
+  Input,
 } from "@material-tailwind/react";
 import { authorsTableData } from "@/data";
+import { XMarkIcon } from "@heroicons/react/24/outline";
+import React from "react";
 
 export function ServiceTable() {
+  const [readOpen, setReadOpen] = React.useState(false);
+  const readHandleOpen = () => setReadOpen(!readOpen);
+  const [addOpen, setAddOpen] = React.useState(false);
+  const addHandleOpen = () => setAddOpen(!addOpen);
+  const [editOpen, setEditOpen] = React.useState(false);
+  const editHandleOpen = () => setEditOpen(!editOpen);
+  const [deletOpen, setDeleteOpen] = React.useState(false);
+  const deleteHandleOpen = () => setDeleteOpen(!deletOpen);
   return (
     <div className="mt-12 mb-8 flex flex-col gap-12">
       <Card>
@@ -18,7 +33,7 @@ export function ServiceTable() {
             <Typography variant="h6" color="white">
               ตารางการบริการ
             </Typography>
-            <IconButton color="green">
+            <IconButton color="green" onClick={addHandleOpen}>
               <i className="fas fa-plus" />
             </IconButton>
           </div>
@@ -78,13 +93,18 @@ export function ServiceTable() {
                     </td>
                     <td className={className}>
                       <div className="flex gap-4">
-                        <IconButton color="blue">
+                        <IconButton color="blue" onClick={readHandleOpen}>
                           <i className="fas fa-eye" />
                         </IconButton>
-                        <IconButton as="a" href="#" color="amber">
+                        <IconButton
+                          as="a"
+                          href="#"
+                          color="amber"
+                          onClick={editHandleOpen}
+                        >
                           <i className="fas fa-pencil" />
                         </IconButton>
-                        <IconButton color="red">
+                        <IconButton color="red" onClick={deleteHandleOpen}>
                           <i className="fas fa-trash" />
                         </IconButton>
                       </div>
@@ -96,6 +116,294 @@ export function ServiceTable() {
           </table>
         </CardBody>
       </Card>
+      {/* read modal */}
+      <Dialog open={readOpen} handler={readHandleOpen} size="xs">
+        <DialogHeader className="relative m-0 block">
+          ข้อมูลการบริการ{" "}
+          <IconButton
+            size="sm"
+            variant="text"
+            className="!absolute right-3.5 top-3.5"
+            onClick={readHandleOpen}
+          >
+            <XMarkIcon className="h-4 w-4 stroke-2" />
+          </IconButton>
+        </DialogHeader>
+        <DialogBody>
+          <Typography variant="lead">
+            การบริการ : xxx<br></br>รายละเอียด : xxx<br></br>
+            ราคา : xxx<br></br>ระยะเวลา : xxx
+          </Typography>
+        </DialogBody>
+        <DialogFooter></DialogFooter>
+      </Dialog>
+      {/* edit modal */}
+      <Dialog
+        size="sm"
+        open={editOpen}
+        handler={editHandleOpen}
+        className="p-4"
+      >
+        <DialogHeader className="relative m-0 block">
+          <Typography variant="h4" color="blue-gray">
+            แก้ไขข้อมูลการบริการ
+          </Typography>
+
+          <IconButton
+            size="sm"
+            variant="text"
+            className="!absolute right-3.5 top-3.5"
+            onClick={editHandleOpen}
+          >
+            <XMarkIcon className="h-4 w-4 stroke-2" />
+          </IconButton>
+        </DialogHeader>
+        <DialogBody className="space-y-4 pb-6">
+          <div>
+            <Typography
+              variant="small"
+              color="blue-gray"
+              className="mb-2 text-left font-medium"
+            >
+              ชื่อบริการ
+            </Typography>
+            <Input
+              color="gray"
+              size="lg"
+              name="name"
+              className="placeholder:opacity-100 focus:!border-t-gray-900"
+              containerProps={{
+                className: "!min-w-full",
+              }}
+              labelProps={{
+                className: "hidden",
+              }}
+            />
+          </div>
+          <div>
+            <Typography
+              variant="small"
+              color="blue-gray"
+              className="mb-2 text-left font-medium"
+            >
+              รายละเอียด
+            </Typography>
+            <Textarea variant="outlined" />
+          </div>
+          <div>
+            <Typography
+              name="description"
+              color="gray"
+              className="mb-2 text-left font-medium"
+            >
+              ราคา
+            </Typography>
+            <Input
+              color="gray"
+              size="lg"
+              placeholder="บาท"
+              name="price"
+              className="placeholder:opacity-100 focus:!border-t-gray-900"
+              containerProps={{
+                className: "!min-w-full",
+              }}
+              labelProps={{
+                className: "hidden",
+              }}
+            />
+          </div>
+          <div>
+            <Typography
+              variant="small"
+              color="blue-gray"
+              className="mb-2 text-left font-medium"
+            >
+              ระยะเวลา
+            </Typography>
+            <Input
+              color="gray"
+              size="lg"
+              placeholder="ชั่วโมง"
+              name="duration"
+              className="placeholder:opacity-100 focus:!border-t-gray-900"
+              containerProps={{
+                className: "!min-w-full",
+              }}
+              labelProps={{
+                className: "hidden",
+              }}
+            />
+          </div>
+          <div>
+            <Typography
+              variant="small"
+              color="blue-gray"
+              className="mb-2 text-left font-medium"
+            >
+              รูปบริการ
+            </Typography>
+            <Input
+              color="gray"
+              size="lg"
+              name="image"
+              className="placeholder:opacity-100 focus:!border-t-gray-900"
+              containerProps={{
+                className: "!min-w-full",
+              }}
+              labelProps={{
+                className: "hidden",
+              }}
+            />
+          </div>
+        </DialogBody>
+        <DialogFooter>
+          <Button className="ml-auto" onClick={editHandleOpen}>
+            แก้ไขข้อมูล
+          </Button>
+        </DialogFooter>
+      </Dialog>
+      {/* add modal */}
+      <Dialog size="sm" open={addOpen} handler={addHandleOpen} className="p-4">
+        <DialogHeader className="relative m-0 block">
+          <Typography variant="h4" color="blue-gray">
+            เพิ่มการบริการ
+          </Typography>
+          <IconButton
+            size="sm"
+            variant="text"
+            className="!absolute right-3.5 top-3.5"
+            onClick={addHandleOpen}
+          >
+            <XMarkIcon className="h-4 w-4 stroke-2" />
+          </IconButton>
+        </DialogHeader>
+        <DialogBody className="space-y-4 pb-6">
+          <div>
+            <Typography
+              variant="small"
+              color="blue-gray"
+              className="mb-2 text-left font-medium"
+            >
+              ชื่อบริการ
+            </Typography>
+            <Input
+              color="gray"
+              size="lg"
+              name="name"
+              className="placeholder:opacity-100 focus:!border-t-gray-900"
+              containerProps={{
+                className: "!min-w-full",
+              }}
+              labelProps={{
+                className: "hidden",
+              }}
+            />
+          </div>
+          <div>
+            <Typography
+              variant="small"
+              color="blue-gray"
+              className="mb-2 text-left font-medium"
+            >
+              รายละเอียด
+            </Typography>
+            <Textarea variant="outlined" />
+          </div>
+          <div>
+            <Typography
+              name="description"
+              color="gray"
+              className="mb-2 text-left font-medium"
+            >
+              ราคา
+            </Typography>
+            <Input
+              color="gray"
+              size="lg"
+              placeholder="บาท"
+              name="price"
+              className="placeholder:opacity-100 focus:!border-t-gray-900"
+              containerProps={{
+                className: "!min-w-full",
+              }}
+              labelProps={{
+                className: "hidden",
+              }}
+            />
+          </div>
+          <div>
+            <Typography
+              variant="small"
+              color="blue-gray"
+              className="mb-2 text-left font-medium"
+            >
+              ระยะเวลา
+            </Typography>
+            <Input
+              color="gray"
+              size="lg"
+              placeholder="ชั่วโมง"
+              name="duration"
+              className="placeholder:opacity-100 focus:!border-t-gray-900"
+              containerProps={{
+                className: "!min-w-full",
+              }}
+              labelProps={{
+                className: "hidden",
+              }}
+            />
+          </div>
+          <div>
+            <Typography
+              variant="small"
+              color="blue-gray"
+              className="mb-2 text-left font-medium"
+            >
+              รูปบริการ
+            </Typography>
+            <Input
+              color="gray"
+              size="lg"
+              name="image"
+              className="placeholder:opacity-100 focus:!border-t-gray-900"
+              containerProps={{
+                className: "!min-w-full",
+              }}
+              labelProps={{
+                className: "hidden",
+              }}
+            />
+          </div>
+        </DialogBody>
+        <DialogFooter>
+          <Button className="ml-auto" onClick={addHandleOpen}>
+            บันทึกข้อมูล
+          </Button>
+        </DialogFooter>
+      </Dialog>
+      {/* delete modal */}
+      <Dialog open={deletOpen} handler={deleteHandleOpen} size="xs">
+        <DialogHeader>ลบข้อมูล</DialogHeader>
+        <DialogBody>คุณแน่ใจแล้วใช่ไหมที่จะลบข้อมูลที่เลือก</DialogBody>
+        <DialogFooter>
+          <Button
+            variant="text"
+            color="red"
+            onClick={deleteHandleOpen}
+            className="mr-1"
+          >
+            <span>ลบ</span>
+          </Button>
+          <Button
+            variant="text"
+            color="gray"
+            onClick={deleteHandleOpen}
+            className="mr-1"
+          >
+            <span>ยกเลิก</span>
+          </Button>
+        </DialogFooter>
+      </Dialog>
     </div>
   );
 }
