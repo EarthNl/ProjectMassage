@@ -4,11 +4,8 @@ var cors = require("cors");
 var bodyParser = require("body-parser");
 const apiUser = require("./api-user");
 const apiStaff = require("./api-staff");
-// const apiTravel = require("./api-travel");
-// const apiReview = require("./api-review");
-// const apiTravelType = require("./api-travel-type");
-// const apiTravelActivity = require("./api-travel-activity");
-// const apiAddress = require("./api-address");
+const apiService = require("./api-service");
+
 
 router.use(cors());
 router.use(bodyParser.json({ limit: "50mb" }));
@@ -32,12 +29,7 @@ router.use("/uploads", express.static("uploads"));
 
 router.use("/user", apiUser);
 router.use("/staff", apiStaff);
-// router.use("/member", apiMember);
-// router.use("/travel", apiTravel);
-// router.use("/review", apiReview);
-// router.use("/travel-type", apiTravelType);
-// router.use("/travel-activity", apiTravelActivity);
-// router.use("/address", apiAddress);
+router.use("/service", apiService);
 
 
 module.exports = router;

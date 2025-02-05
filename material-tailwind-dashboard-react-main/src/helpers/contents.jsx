@@ -13,6 +13,15 @@ export const userService = {
     UPDATE_USER_URL: "user/update",
     DELETE_USER_URL: "user/delete",
 }
+
+export const serviceService = {
+    GET_SERVICE_URL: "service/get",
+    GETBYID_SERVICE_URL: "service/getbyid",
+    INSERT_SERVICE_URL: "service/insert",
+    UPDATE_SERVICE_URL: "service/update",
+    DELETE_SERVICE_URL: "service/delete",
+}
+
 export const removeAllStorage = async () => {
     let keys = ['', ''];
     keys.forEach(k => localStorage.removeItem(k))

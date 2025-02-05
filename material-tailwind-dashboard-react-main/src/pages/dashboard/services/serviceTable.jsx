@@ -10,33 +10,32 @@ import {
 } from "@material-tailwind/react";
 import { useEffect, useState } from "react";
 import {
-  DeleteUserService,
-  GetUserService,
-  InsertUserService,
-  UpdateUserService,
-} from "@/services/User.service";
-import { apiLocal } from "@/common/axios";
+  DeleteServiceService,
+  GetServiceService,
+  InsertServiceService,
+  UpdateServiceService,
+} from "@/services/Service.service";
 import ReactPaginate from "react-paginate";
 import { FormDialog } from "./formDialog";
 import { CardDialogDetail } from "./cardDialogDetail";
 
-export function UserTable() {
+export function ServiceTable() {
   const [result, setResult] = useState(null);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(5);
   const [search, setSearch] = useState("");
   const [totalCount, setTotalCount] = useState(0);
   const [totalPage, setTotalPage] = useState(0);
-  //User
-  const [userForm, setUserForm] = useState(null);
-  const [userDetail, setUserDetail] = useState(null);
+  //Service
+  const [serviceForm, setServiceForm] = useState(null);
+  const [serviceDetail, setServiceDetail] = useState(null);
 
   useEffect(() => {
-    fetchDataUser();
+    fetchDataService();
   }, [page, pageSize]);
 
-  const fetchDataUser = async () => {
-    const res = await GetUserService(page, pageSize, search);
+  const fetchDataService = async () => {
+    const res = await GetServiceService(page, pageSize, search);
     if (res) {
       setResult(res.data);
       setTotalCount(res.totalCount);
@@ -54,32 +53,32 @@ export function UserTable() {
     setPageSize(parseInt(number));
   };
 
-  const handleOpenForm = (item) => setUserForm(item);
-  const handleCloseForm = () => setUserForm(null);
+  const handleOpenForm = (item) => setServiceForm(item);
+  const handleCloseForm = () => setServiceForm(null);
 
-  const handleOpenDetail = (item) => setUserDetail(item);
-  const handleCloseDetail = () => setUserDetail(null);
+  const handleOpenDetail = (item) => setServiceDetail(item);
+  const handleCloseDetail = () => setServiceDetail(null);
 
-  const onSubmitUser = async (formData) => {
-    if (userForm && userForm.user_id) {
-      const resp = await UpdateUserService(formData);
+  const onSubmitService = async (formData) => {
+    if (serviceForm && serviceForm.service_id) {
+      const resp = await UpdateServiceService(formData);
       if (resp && resp.status === "200") {
-        await fetchDataUser();
+        await fetchDataService();
         handleCloseForm();
       }
     } else {
-      const resp = await InsertUserService(formData);
+      const resp = await InsertServiceService(formData);
       if (resp && resp.status === "200") {
-        await fetchDataUser();
+        await fetchDataService();
         handleCloseForm();
       }
     }
   };
 
-  const onDeleteUser = async (user_id) => {
-    const resp = await DeleteUserService(user_id);
+  const onDeleteService = async (service_id) => {
+    const resp = await DeleteServiceService(service_id);
     if (resp && resp.status === "200") {
-      await fetchDataUser();
+      await fetchDataService();
     }
   };
 
@@ -89,7 +88,7 @@ export function UserTable() {
         <CardHeader variant="gradient" color="gray" className="mb-8 p-6">
           <div className="flex items-start justify-between">
             <Typography variant="h6" color="white">
-              ตารางผู้ใช้งาน
+              ตารางบริการ
             </Typography>
             <IconButton color="green" onClick={() => handleOpenForm({})}>
               <i className="fas fa-user-plus" />
@@ -100,21 +99,19 @@ export function UserTable() {
           <table className="w-full min-w-[640px] table-auto">
             <thead>
               <tr>
-                {["ลำดับ", "อีเมล", "ชื่อ", "เบอร์โทรศัพท์", "บทบาท", ""].map(
-                  (el) => (
-                    <th
-                      key={el}
-                      className="border-b border-blue-gray-50 py-3 px-5 text-left"
+                {["ลำดับ", "การบริการ", "ระยะเวลา", "ราคา", ""].map((el) => (
+                  <th
+                    key={el}
+                    className="border-b border-blue-gray-50 py-3 px-5 text-left"
+                  >
+                    <Typography
+                      variant="small"
+                      className="text-[11px] font-bold uppercase text-blue-gray-400"
                     >
-                      <Typography
-                        variant="small"
-                        className="text-[11px] font-bold uppercase text-blue-gray-400"
-                      >
-                        {el}
-                      </Typography>
-                    </th>
-                  ),
-                )}
+                      {el}
+                    </Typography>
+                  </th>
+                ))}
               </tr>
             </thead>
             <tbody>
@@ -140,22 +137,17 @@ export function UserTable() {
                       </td>
                       <td className={className}>
                         <Typography className="text-xs font-normal text-blue-gray-500">
-                          {item.email}
-                        </Typography>
-                      </td>
-                      <td className={className}>
-                        <Typography className="text-xs font-normal text-blue-gray-500">
                           {item.name}
                         </Typography>
                       </td>
                       <td className={className}>
-                        <Typography className="text-xs font-semibold text-blue-gray-600">
-                          {item.phone}
+                        <Typography className="text-xs font-normal text-blue-gray-500">
+                          {item.duration}
                         </Typography>
                       </td>
                       <td className={className}>
                         <Typography className="text-xs font-semibold text-blue-gray-600">
-                          {item.role}
+                          {item.price}
                         </Typography>
                       </td>
                       <td className={className}>
@@ -177,7 +169,7 @@ export function UserTable() {
                           <IconButton
                             color="red"
                             onClick={async () =>
-                              await onDeleteUser(item.user_id)
+                              await onDeleteService(item.service_id)
                             }
                           >
                             <i className="fas fa-trash" />
@@ -191,7 +183,7 @@ export function UserTable() {
           </table>
         </CardBody>
         <CardFooter>
-        <div className="flex">
+          <div className="flex">
             <ReactPaginate
               className="flex items-center gap-4 "
               breakLabel="..."
@@ -231,15 +223,15 @@ export function UserTable() {
         </CardFooter>
       </Card>
       <FormDialog
-        data={userForm}
-        open={userForm ? true : false}
+        data={serviceForm}
+        open={serviceForm ? true : false}
         handler={handleCloseForm}
         handleClose={handleCloseForm}
-        onSubmit={onSubmitUser}
+        onSubmit={onSubmitService}
       />
       <CardDialogDetail
-        data={userDetail}
-        open={userDetail ? true : false}
+        data={serviceDetail}
+        open={serviceDetail ? true : false}
         handler={handleCloseDetail}
         handleClose={handleCloseDetail}
       />
@@ -247,4 +239,4 @@ export function UserTable() {
   );
 }
 
-export default UserTable;
+export default ServiceTable;

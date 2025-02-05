@@ -29,9 +29,9 @@ export function FormDialog({
     <>
       <Dialog open={open} handler={handler}>
         {data && data.user_id ? (
-          <DialogHeader>แก้ไขข้อมูลพนักงาน</DialogHeader>
+          <DialogHeader>แก้ไขข้อมูลผู้ใช้งาน</DialogHeader>
         ) : (
-          <DialogHeader>เพิ่มข้อมูลพนักงาน</DialogHeader>
+          <DialogHeader>เพิ่มข้อมูลผู้ใช้งาน</DialogHeader>
         )}
         <Formik
           validationSchema={validationSchema}
@@ -68,12 +68,9 @@ export function FormDialog({
             <Form onSubmit={handleSubmit}>
               <DialogBody>
                 <div className="mb-1 flex flex-col gap-6">
-                  {values.user_code && (
-                    <Input name="user_code" value={values.user_code} disabled />
-                  )}
                   <Input
                     size="lg"
-                    label="name"
+                    label="ชื่อ"
                     name="user_name"
                     value={values.user_name}
                     onChange={handleChange}
@@ -81,7 +78,7 @@ export function FormDialog({
                   />
                   <Input
                     size="lg"
-                    label="phone"
+                    label="เบอร์โทรศัพท์"
                     name="user_phone"
                     value={values.user_phone}
                     onChange={handleChange}
@@ -89,7 +86,7 @@ export function FormDialog({
                   />
                   <Input
                     size="lg"
-                    label="email"
+                    label="อีเมล"
                     name="user_email"
                     value={values.user_email}
                     onChange={handleChange}
@@ -98,7 +95,7 @@ export function FormDialog({
                   {data && data.user_id ? (
                     <Input
                       size="lg"
-                      label="new password"
+                      label="รหัสผ่านใหม่"
                       name="user_new_pass"
                       value={values.user_new_pass}
                       onChange={handleChange}
@@ -107,7 +104,7 @@ export function FormDialog({
                   ) : (
                     <Input
                       size="lg"
-                      label="password"
+                      label="รหัสผ่าน"
                       name="user_pass"
                       value={values.user_pass}
                       onChange={handleChange}

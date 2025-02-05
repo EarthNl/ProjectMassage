@@ -6,6 +6,7 @@ import {
   Avatar,
   IconButton,
   CardFooter,
+  Button,
 } from "@material-tailwind/react";
 import { useEffect, useState } from "react";
 import {
@@ -190,26 +191,43 @@ export function StaffTable() {
           </table>
         </CardBody>
         <CardFooter>
-          <ReactPaginate
-            breakLabel="..."
-            nextLabel="next >"
-            pageCount={totalPage}
-            previousLabel="< previous"
-            renderOnZeroPageCount={null}
-            onPageChange={onPageChange}
-          />
-          <select
-            value={pageSize}
-            onChange={(e) => {
-              const value = e.target.value;
-              handleChangePageSize(value);
-            }}
-          >
-            <option value={5}>5</option>
-            <option value={10}>10</option>
-            <option value={20}>20</option>
-            {totalCount > 0 && <option value={totalCount}>ทั้งหมด</option>}
-          </select>
+        <div className="flex">
+            <ReactPaginate
+              className="flex items-center gap-4 "
+              breakLabel="..."
+              nextLabel={
+                <Button
+                  variant="text"
+                  className="flex items-center gap-1 rounded-full"
+                >
+                  ถัดไป
+                </Button>
+              }
+              previousLabel={
+                <Button
+                  variant="text"
+                  className="flex items-center gap-1 rounded-full"
+                >
+                  ย้อนกลับ
+                </Button>
+              }
+              pageCount={totalPage}
+              renderOnZeroPageCount={null}
+              onPageChange={onPageChange}
+            />
+            <select
+              value={pageSize}
+              onChange={(e) => {
+                const value = e.target.value;
+                handleChangePageSize(value);
+              }}
+            >
+              <option value={5}>5</option>
+              <option value={10}>10</option>
+              <option value={20}>20</option>
+              {totalCount > 0 && <option value={totalCount}>ทั้งหมด</option>}
+            </select>
+          </div>
         </CardFooter>
       </Card>
       <FormDialog
