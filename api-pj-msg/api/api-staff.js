@@ -28,9 +28,11 @@ router.post("/get", async (req, res) => {
     let pageSize = parseInt(json["pageSize"]) || 10;
     let offset = (page - 1) * pageSize;
 
-    const [res_total] = await db.query(`SELECT COUNT(*) AS total FROM staff`);
+    const [res_total] = await db.query(`SELECT COUNT(*) AS total FROM staff WHERE CONCAT_WS(' ',name) LIKE '%' ? '%'`,[json["search"]]);
     const [res_staff] = await db.query(`
-        SELECT * FROM staff WHERE  CONCAT_WS(' ',name) LIKE '%' ? '%' LIMIT ? OFFSET ?`,
+        SELECT * FROM staff WHERE  CONCAT_WS(' ',name) LIKE '%' ? '%' 
+        ORDER BY creationDate DESC 
+        LIMIT ? OFFSET ?`,
       [json["search"], pageSize, offset]
     );
 
@@ -129,7 +131,7 @@ router.post("/insert", async (req, res) => {
       filePath = addfileBase64(json["staff_img"],`uploads/staff/${staff_code}`);
     }
  
-    await db.query(`INSERT INTO staff (staff_code,name,phone,image_url) VALUES (?,?,?,?)`,[staff_code,json["staff_name"],json["staff_phone"],filePath ? filePath : ""]);
+    await db.query(`INSERT INTO staff (staff_code,name,phone,image_url,creationDate) VALUES (?,?,?,?,NOW())`,[staff_code,json["staff_name"],json["staff_phone"],filePath ? filePath : ""]);
        
     res.send({
       status: "200",

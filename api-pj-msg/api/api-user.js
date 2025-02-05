@@ -204,7 +204,7 @@ router.post("/insert", async (req, res) => {
       return;
     }
 
-    const [res_user] = await db.query(`SELECT * FROM user WHERE name = ? OR email = ?`,[json["user_name"],json["user_email"]]);
+    const [res_user] = await db.query(`SELECT * FROM user WHERE email = ?`,[json["user_email"]]);
 
     if (res_user && res_user[0]) {
       res.send({
@@ -215,8 +215,8 @@ router.post("/insert", async (req, res) => {
       return;
     }
 
-    await db.query(`INSERT INTO user (name,password,email,phone) VALUES (?,?,?,?)`
-      ,[json["user_name"],md5(json["user_pass"]),json["user_email"],json["user_phone"]]);
+    await db.query(`INSERT INTO user (name,password,email,phone,role) VALUES (?,?,?,?,?)`
+      ,[json["user_name"],md5(json["user_pass"]),json["user_email"],json["user_phone"],json["user_role"]]);
 
     res.send({
       status: "200",
@@ -248,7 +248,7 @@ router.post("/update", async (req, res) => {
       let pass = "";
 
       if (json["user_new_pass"]) {
-        let userNewPass = md5(json["user_new_pass"]).toUpperCase();
+        let userNewPass = md5(json["user_new_pass"]).toLowerCase()
         if (json["user_pass"] !== userNewPass) {
           pass = userNewPass;
         }
@@ -261,8 +261,9 @@ router.post("/update", async (req, res) => {
         UPDATE user SET name = ?
         ,password = ?
         ,email = ?
-        ,phone = ? WHERE user_id = ?`,
-        [json["user_name"], pass, json["user_email"],json["user_phone"],json["user_id"]]
+        ,phone = ? 
+        ,role = ? WHERE user_id = ?`,
+        [json["user_name"], pass, json["user_email"],json["user_phone"],json["user_role"],json["user_id"]]
       );
 
       res.send({
