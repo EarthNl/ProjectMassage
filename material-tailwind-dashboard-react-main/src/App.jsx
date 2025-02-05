@@ -6,17 +6,17 @@ function App() {
   const user_role = getStorage();
   return (
     <div className="w-full h-full">
-      {/* {user_role ? ( */}
+      {/* {user_role ? (  */}
         <Routes>
           <Route path="/dashboard/*" element={<Dashboard />} />
           <Route path="*" element={<Navigate to="/dashboard/home" replace />} />
         </Routes>
-      {/* ) : ( */}
-        {/* <Routes>
+       {/* ) : ( 
+         <Routes>
           <Route path="/auth/*" element={<Auth />} />
           <Route path="*" element={<Navigate to="/auth/sign-in" replace />} />
-        </Routes> */}
-      {/* )} */}
+        </Routes> 
+       )}  */}
     </div>
   );
 }
