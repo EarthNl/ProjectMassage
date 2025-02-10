@@ -17,11 +17,9 @@ import {
   UserTable,
   ServiceTable,
   StaffTable,
-  ReviewTable,
+  ReviewTable,UserHome,UserService
 } from "@/pages/dashboard";
-import {
-  UserHome
-} from "@/pages/dashboard/user/userHome";
+
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -80,6 +78,12 @@ export const routes = [
         path: "/userhome",
         element: <UserHome />,
       },
+      {
+        icon: <HomeIcon {...icon} />,
+        name: "UserService",
+        path: "/userservice",
+        element: <UserService />,
+      },
     ],
   },
   {
@@ -95,6 +99,7 @@ export const routes = [
       },
     ],
   },
+  
 ];
 
 export default routes;

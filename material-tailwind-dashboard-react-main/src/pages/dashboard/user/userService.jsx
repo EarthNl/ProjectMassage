@@ -12,11 +12,9 @@ import { FingerPrintIcon, UsersIcon } from "@heroicons/react/24/solid";
 import { PageTitle, Footer } from "@/widgets/layout";
 import { FeatureCard, TeamCard } from "@/widgets/cards";
 import { featuresData, teamData, contactData } from "@/data";
-import { UserService } from "@/pages/dashboard/user/userService";
-
 import { Link } from "react-router-dom";
 
-export function UserHome() {
+export function UserService() {
   return (
     <>
       <div className="relative flex h-screen content-center items-center justify-center pt-16 pb-32">
@@ -107,85 +105,7 @@ export function UserHome() {
           </div>
         </div>
       </div>
-      <section className="-mt-32 bg-white px-4 pb-20 pt-4">
-        <div className="container mx-auto">
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {featuresData.map(({ color, title, icon, description }) => (
-              <div>
-                <Link to="/userservice">
-                  <Card className="shadow-lg border shadow-gray-500/10 rounded-lg">
-                    <CardHeader floated={false} className="relative h-56">
-                      <img
-                        alt="Card Image"
-                        src="https://img.freepik.com/free-photo/closeup-relaxed-woman-getting-back-massage-with-herbal-balls-health-spa_637285-2100.jpg?t=st=1738771514~exp=1738775114~hmac=46eaadb5d71f0dca8cdf738ed261aec2e8e3bfd4f0a18a2151b619f58fa35654&w=996"
-                        className="h-full w-full"
-                      />
-                    </CardHeader>
-                    <CardBody>
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal"
-                      >
-                        60 นาที
-                      </Typography>
-                      <Typography
-                        variant="h5"
-                        color="blue-gray"
-                        className="mb-3 mt-2 font-bold"
-                      >
-                        {title}
-                      </Typography>
-                      <Typography className="font-normal text-blue-gray-500">
-                        {description}
-                      </Typography>
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal"
-                      >
-                        ราคา 350 บาท
-                      </Typography>
-                    </CardBody>
-                  </Card>
-                </Link>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-      <section className="px-4 pt-20 pb-48">
-        <div className="container mx-auto">
-          <PageTitle
-            section="ประสบการณ์สูง ผ่านการฝึกอบรมมาโดยเฉพาะ"
-            heading="นักบำบัด"
-          >
-            ไม่เพียงแค่บรรยกาศสุดผ่อนคลาย<br></br> ไม้งาม สาขา The Fourth
-            พุทธมณฑลสาย4<br></br>
-            ได้คัดสรรนักบำบัดผู้เชี่ยวชาญมืออาชีพ นวดบรรเทาอาการปวดเมื่อย
-            นวดคลายความเครียด ได้อย่างสมบูรณ์แบบ
-          </PageTitle>
-          <div className="mt-24 grid grid-cols-1 gap-12 gap-x-24 md:grid-cols-2 xl:grid-cols-4">
-            {teamData.map(({ img, name, position, socials }) => (
-              <TeamCard
-                key={name}
-                img={img}
-                name={name}
-                position={position}
-                socials={
-                  <div className="flex items-center gap-2">
-                    {socials.map(({ color, name }) => (
-                      <IconButton key={name} color={color} variant="text">
-                        <i className={`fa-brands text-xl fa-${name}`} />
-                      </IconButton>
-                    ))}
-                  </div>
-                }
-              />
-            ))}
-          </div>
-        </div>
-      </section>
+      
       <div className="bg-white">
         <Footer />
       </div>
@@ -193,4 +113,4 @@ export function UserHome() {
   );
 }
 
-export default UserHome;
+export default UserService;
