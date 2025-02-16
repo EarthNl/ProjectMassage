@@ -6,7 +6,7 @@ import {
   Typography,
   Button,
   IconButton,
-  Carousel,
+  Carousel, CardFooter
 } from "@material-tailwind/react";
 import { FingerPrintIcon, UsersIcon } from "@heroicons/react/24/solid";
 import { PageTitle, Footer } from "@/widgets/layout";
@@ -112,33 +112,36 @@ export function UserHome() {
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {featuresData.map(({ color, title, icon, description }) => (
               <div>
-                <Link to="/userservice">
-                  <Card className="shadow-lg border shadow-gray-500/10 rounded-lg">
-                    <CardHeader floated={false} className="relative h-56">
-                      <img
-                        alt="Card Image"
-                        src="https://img.freepik.com/free-photo/closeup-relaxed-woman-getting-back-massage-with-herbal-balls-health-spa_637285-2100.jpg?t=st=1738771514~exp=1738775114~hmac=46eaadb5d71f0dca8cdf738ed261aec2e8e3bfd4f0a18a2151b619f58fa35654&w=996"
-                        className="h-full w-full"
-                      />
-                    </CardHeader>
-                    <CardBody>
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal"
-                      >
-                        60 นาที
-                      </Typography>
-                      <Typography
-                        variant="h5"
-                        color="blue-gray"
-                        className="mb-3 mt-2 font-bold"
-                      >
-                        {title}
-                      </Typography>
-                      <Typography className="font-normal text-blue-gray-500">
-                        {description}
-                      </Typography>
+                <Card className="shadow-lg border shadow-gray-500/10 rounded-lg">
+                  <CardHeader floated={false} className="relative h-56">
+                    <img
+                      alt="Card Image"
+                      src="https://img.freepik.com/free-photo/closeup-relaxed-woman-getting-back-massage-with-herbal-balls-health-spa_637285-2100.jpg?t=st=1738771514~exp=1738775114~hmac=46eaadb5d71f0dca8cdf738ed261aec2e8e3bfd4f0a18a2151b619f58fa35654&w=996"
+                      className="h-full w-full"
+                    />
+                  </CardHeader>
+                  <CardBody>
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="font-normal"
+                    >
+                      60 นาที
+                    </Typography>
+                    <Typography
+                      variant="h5"
+                      color="blue-gray"
+                      className="mb-3 mt-2 font-bold"
+                    >
+                      {title}
+                    </Typography>
+                    <Typography className="font-normal text-blue-gray-500">
+                      {description}
+                    </Typography>
+
+                  </CardBody>
+                  <CardFooter className="flex items-center justify-between">
+                    <div className="flex items-center -space-x-3">
                       <Typography
                         variant="small"
                         color="blue-gray"
@@ -146,9 +149,12 @@ export function UserHome() {
                       >
                         ราคา 350 บาท
                       </Typography>
-                    </CardBody>
-                  </Card>
-                </Link>
+                      
+                    </div>
+                    <Button>เพิ่มเติม</Button>
+                  </CardFooter>
+                </Card>
+
               </div>
             ))}
           </div>

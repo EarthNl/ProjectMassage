@@ -8,6 +8,7 @@ export * from "@/pages/dashboard/staffs/staffTable";
 export * from "@/pages/dashboard/reviewTable";
 export * from "@/pages/dashboard/user/userHome";
 export * from "@/pages/dashboard/user/userService";
+export * from "@/pages/dashboard/user/userBooking";
 export * from "@/pages/dashboard/services/serviceTable";
 
 

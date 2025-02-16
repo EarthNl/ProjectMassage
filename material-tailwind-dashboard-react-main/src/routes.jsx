@@ -17,7 +17,7 @@ import {
   UserTable,
   ServiceTable,
   StaffTable,
-  ReviewTable,UserHome,UserService
+  ReviewTable,UserHome,UserService,UserBooking
 } from "@/pages/dashboard";
 
 
@@ -83,6 +83,12 @@ export const routes = [
         name: "UserService",
         path: "/userservice",
         element: <UserService />,
+      },
+      {
+        icon: <HomeIcon {...icon} />,
+        name: "UserBooking",
+        path: "/userbooking",
+        element: <UserBooking />,
       },
     ],
   },
