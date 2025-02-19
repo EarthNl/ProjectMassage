@@ -21,7 +21,10 @@ const localizer = momentLocalizer(moment);
 
 // **กำหนด Validation Schema**
 const bookingSchema = yup.object().shape({
-  name: yup.string().required("กรุณากรอกชื่อ"),
+  name: yup
+    .string()
+    .matches(/^[ก-๙a-zA-Z]+ [ก-๙a-zA-Z]+$/, "กรุณากรอกชื่อและนามสกุลโดยมีเว้นวรรค")
+    .required("กรุณากรอกชื่อและนามสกุล"),
   email: yup.string().email("รูปแบบอีเมลไม่ถูกต้อง").required("กรุณากรอกอีเมล"),
   phone: yup.string()
     .matches(/^[0-9]{10}$/, "เบอร์โทรศัพท์ต้องเป็นตัวเลข 10 หลัก")
@@ -46,19 +49,37 @@ export function UserBooking() {
   });
 
   const handleBooking = (slotInfo) => {
-    const selectedDate = moment(slotInfo.start).format("YYYY-MM-DD");
-    const selectedTime = moment(slotInfo.start).format("HH:00");
-    setBooking({ ...booking, date: selectedDate, startTime: selectedTime });
+    const now = moment(); // เวลาปัจจุบัน
+    const selectedDateTime = moment(slotInfo.start);
+  
+    if (selectedDateTime.isBefore(now)) {
+      alert("ไม่สามารถจองวันที่หรือเวลาที่ผ่านมาแล้วได้");
+      return;
+    }
+  
+    setBooking({
+      ...booking,
+      date: selectedDateTime.format("YYYY-MM-DD"),
+      startTime: selectedDateTime.format("HH:00"),
+    });
     setOpen(true);
   };
-
+  
   const onSubmit = (data) => {
+    const now = moment();
+    const selectedDateTime = moment(`${booking.date}T${booking.startTime}:00`);
+  
+    if (selectedDateTime.isBefore(now)) {
+      alert("ไม่สามารถจองวันที่หรือเวลาที่ผ่านมาแล้วได้");
+      return;
+    }
+  
     const newBooking = {
-      title: `จอง: ${data.name}`,
-      start: new Date(`${booking.date}T${booking.startTime}:00`),
-      end: new Date(`${booking.date}T${parseInt(booking.startTime.split(":")[0]) + 1}:00:00`),
+      title: `จองแล้ว: ${data.name}`,
+      start: selectedDateTime.toDate(),
+      end: selectedDateTime.add(1, "hour").toDate(),
     };
-
+  
     const isBooked = events.some(
       (event) => event.start.getTime() === newBooking.start.getTime(),
     );
@@ -66,15 +87,16 @@ export function UserBooking() {
       alert("เวลานี้ถูกจองแล้ว");
       return;
     }
-
+  
     setEvents([...events, newBooking]);
     setOpen(false);
   };
-
+  
   return (
     <div className="p-4">
       <Card className="w-full">
         <Calendar
+        className="m-4"
           localizer={localizer}
           events={events}
           startAccessor="start"

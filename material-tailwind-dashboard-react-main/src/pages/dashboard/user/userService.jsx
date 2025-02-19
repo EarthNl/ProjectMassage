@@ -5,15 +5,10 @@ import {
   Typography,
   Button,
   Rating,
-  CardFooter, Dialog, Input, Popover,
-  PopoverHandler,
-  PopoverContent,
+  CardFooter,
 } from "@material-tailwind/react";
 import { CalendarDaysIcon } from "@heroicons/react/24/solid";
 import { Footer } from "@/widgets/layout";
-import { format } from "date-fns";
-import { DayPicker } from "react-day-picker";
-import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/react/24/outline";
 
 
 export function UserService() {
@@ -43,13 +38,11 @@ export function UserService() {
   const [active, setActive] = React.useState(
     "https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
   );
-  const [open, setOpen] = React.useState(false);
-  
-  const [date, setDate] = React.useState(new Date());
+
   return (
     <>
-      <section className="bg-white px-4 pb-20 pt-4">
-        <div className="mt-32 flex flex-wrap items-center">
+      <section className="bg-white p-4 rounded-lg">
+        <div className="mt-4 flex flex-wrap items-center">
           <div className="mx-auto mt-24 flex w-full justify-center px-4 md:w-7/12 lg:mt-0">
             <div className="grid gap-4">
               <div>

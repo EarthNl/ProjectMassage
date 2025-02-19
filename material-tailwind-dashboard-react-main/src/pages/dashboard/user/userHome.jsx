@@ -160,7 +160,7 @@ export function UserHome() {
           </div>
         </div>
       </section>
-      <section className="px-4 pt-20 pb-48">
+      <section className="px-4 pt-10 pb-48  bg-white ">
         <div className="container mx-auto">
           <PageTitle
             section="ประสบการณ์สูง ผ่านการฝึกอบรมมาโดยเฉพาะ"

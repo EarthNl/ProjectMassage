@@ -1,0 +1,36 @@
+export const bookingsData = [
+    {
+      id: 1,
+      name: "สมชาย ใจดี",
+      email: "somchai@example.com",
+      phone: "089-123-4567",
+      service: "นวดไทย",
+      date: "2025-02-20",
+      startTime: "10:00",
+      endTime: "11:00",
+      status: "ยืนยันแล้ว",
+    },
+    {
+      id: 2,
+      name: "มาลี พันธุ์ดี",
+      email: "malee@example.com",
+      phone: "081-987-6543",
+      service: "นวดน้ำมัน",
+      date: "2025-02-20",
+      startTime: "13:00",
+      endTime: "14:00",
+      status: "รอการยืนยัน",
+    },
+    {
+      id: 3,
+      name: "วีระชัย สกุลเดช",
+      email: "weerachai@example.com",
+      phone: "085-555-1234",
+      service: "นวดประคบสมุนไพร",
+      date: "2025-02-21",
+      startTime: "15:00",
+      endTime: "16:00",
+      status: "ยกเลิก",
+    },
+  ];
+  
