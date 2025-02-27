@@ -20,9 +20,6 @@ export function HomeNavbar({ brandName, routes, action }) {
     );
   }, []);
 
-  console.log('routes',routes);
-  
-
   const navList = (
     <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
       {routes && routes.length > 0 && routes.map(({ name, path, icon },key) => (

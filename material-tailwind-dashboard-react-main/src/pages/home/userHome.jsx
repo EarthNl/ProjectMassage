@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   Card,
   CardBody,
@@ -14,13 +14,41 @@ import { FeatureCard, TeamCard } from "@/widgets/cards";
 import { featuresData, teamData, contactData } from "@/data";
 import { UserService } from "@/pages/home/userService";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { GetStaffListService } from "@/services/staff.service";
+import { apiLocal } from "@/common/axios";
+import { GetListService } from "@/services/service.service";
 
 export function UserHome() {
+  const navigate = useNavigate()
+  const [resStaff, setResStaff] = useState([]);
+  const [resService, setResService] = useState([]);
+
+  useEffect(() => {
+    fetchDataService()
+    fetchDataStaff()
+  }, []);
+
+  const fetchDataService = async () => {
+    const result = await GetListService();
+    if (result) {
+      setResService(result);
+      return;
+    }
+    setResService([])
+  };    
+  const fetchDataStaff = async () => {
+    const result = await GetStaffListService();
+    if (result) {
+      setResStaff(result);
+      return;
+    }
+    setResStaff([])
+  };    
   return (
     <>
-      <div className="relative flex h-screen content-center items-center justify-center pt-16 pb-32">
-        <div className="absolute top-0 h-full w-full bg-[url('/img/background-3.png')] bg-cover bg-center" />
+      <section className="relative flex h-screen content-center items-center justify-center">
+        <div className="absolute top-0 h-full w-full bg-[url('/img/background-image.png')] bg-cover bg-center" />
         <div className="absolute top-0 h-full w-full bg-cover bg-center" />
         <div className="max-w-8xl container relative mx-auto">
           <div className="flex flex-wrap items-center ">
@@ -106,57 +134,73 @@ export function UserHome() {
             </Carousel>
           </div>
         </div>
-      </div>
-      <section className="-mt-32 bg-white px-4 pb-20 pt-4">
+      </section>
+      <section className="-mt-32 bg-white px-4 pb-20 pt-10">
         <div className="container mx-auto">
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {featuresData.map(({ color, title, icon, description }) => (
-              <div>
-                <Card className="shadow-lg border shadow-gray-500/10 rounded-lg">
-                  <CardHeader floated={false} className="relative h-56">
-                    <img
-                      alt="Card Image"
-                      src="https://img.freepik.com/free-photo/closeup-relaxed-woman-getting-back-massage-with-herbal-balls-health-spa_637285-2100.jpg?t=st=1738771514~exp=1738775114~hmac=46eaadb5d71f0dca8cdf738ed261aec2e8e3bfd4f0a18a2151b619f58fa35654&w=996"
-                      className="h-full w-full"
-                    />
-                  </CardHeader>
-                  <CardBody>
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      60 นาที
-                    </Typography>
-                    <Typography
-                      variant="h5"
-                      color="blue-gray"
-                      className="mb-3 mt-2 font-bold"
-                    >
-                      {title}
-                    </Typography>
-                    <Typography className="font-normal text-blue-gray-500">
-                      {description}
-                    </Typography>
-
-                  </CardBody>
-                  <CardFooter className="flex items-center justify-between">
-                    <div className="flex items-center -space-x-3">
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal"
-                      >
-                        ราคา 350 บาท
-                      </Typography>
-                      
-                    </div>
-                    <Button>เพิ่มเติม</Button>
-                  </CardFooter>
-                </Card>
-
-              </div>
-            ))}
+            {resService &&
+              resService.length > 0 &&
+              resService.map(
+                ({
+                  service_id,
+                  name,
+                  description,
+                  price,
+                  duration,
+                  image_url,
+                }) => (
+                  <div>
+                    <Card className="shadow-lg border shadow-gray-500/10 rounded-lg">
+                      <CardHeader floated={false} className="relative h-56">
+                        <img
+                          alt="Card Image"
+                          src={`${apiLocal}${image_url}`}
+                          className="h-full w-full"
+                        />
+                      </CardHeader>
+                      <CardBody className="h-[200px]">
+                        <Typography
+                          variant="small"
+                          color="blue-gray"
+                          className="font-normal"
+                        >
+                          {duration} นาที
+                        </Typography>
+                        <Typography
+                          variant="h5"
+                          color="blue-gray"
+                          className="mb-3 mt-2 font-bold"
+                        >
+                          {name}
+                        </Typography>
+                        <p className="font-normal text-blue-gray-500 line-clamp-2">
+                          {description}
+                        </p>
+                      </CardBody>
+                      <CardFooter className="flex items-center justify-between">
+                        <div className="flex items-center -space-x-3">
+                          <Typography
+                            variant="small"
+                            color="blue-gray"
+                            className="font-normal"
+                          >
+                            ราคา {price} บาท
+                          </Typography>
+                        </div>
+                        <Button
+                          onClick={() =>
+                            navigate("/home/userservice", {
+                              state: { service_id: service_id },
+                            })
+                          }
+                        >
+                          เพิ่มเติม
+                        </Button>
+                      </CardFooter>
+                    </Card>
+                  </div>
+                ),
+              )}
           </div>
         </div>
       </section>
@@ -172,23 +216,16 @@ export function UserHome() {
             นวดคลายความเครียด ได้อย่างสมบูรณ์แบบ
           </PageTitle>
           <div className="mt-24 grid grid-cols-1 gap-12 gap-x-24 md:grid-cols-2 xl:grid-cols-4">
-            {teamData.map(({ img, name, position, socials }) => (
-              <TeamCard
-                key={name}
-                img={img}
-                name={name}
-                position={position}
-                socials={
-                  <div className="flex items-center gap-2">
-                    {socials.map(({ color, name }) => (
-                      <IconButton key={name} color={color} variant="text">
-                        <i className={`fa-brands text-xl fa-${name}`} />
-                      </IconButton>
-                    ))}
-                  </div>
-                }
-              />
-            ))}
+            {resStaff &&
+              resStaff.length > 0 &&
+              resStaff.map(({ staff_code, name, image_url, phone }, key) => (
+                <TeamCard
+                  key={key}
+                  img={`${apiLocal}${image_url}`}
+                  name={name}
+                  phone={phone}
+                />
+              ))}
           </div>
         </div>
       </section>

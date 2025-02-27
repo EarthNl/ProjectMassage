@@ -87,13 +87,13 @@ export const routes = [
       {
         icon: <HomeIcon {...icon} />,
         name: "UserService",
-        path: "/userservice",
+        path: "/home/userservice",
         element: <UserService />,
       },
       {
         icon: <HomeIcon {...icon} />,
         name: "UserBooking",
-        path: "/userbooking",
+        path: "/home/userservice/userbooking",
         element: <UserBooking />,
       },
 

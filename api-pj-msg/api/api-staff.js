@@ -61,6 +61,29 @@ router.post("/get", async (req, res) => {
   }
 });
 
+//get
+router.post("/get-list", async (req, res) => {
+  try {
+    const [res_staff] = await db.query(`SELECT * FROM staff`);
+    if (res_staff && res_staff.length > 0) {
+      res.send({
+        data: res_staff,
+        status: "200",
+        message: "SUCCESS",
+        detail: "successful",
+      });
+      return;
+    }
+    res.send({
+      status: "401",
+      message: "WARNING",
+      detail: "No Data",
+    });
+  } catch (err) {
+    res.send({ status: "500", message: "ERROR", detail: err.message });
+  }
+});
+
 // //getbyid
 router.post('/getbyid', async (req, res) => {
 try {
@@ -75,7 +98,7 @@ try {
       return;
     }
 
-    const [res_staff] = await db.query(`SELECT * FROM staff WHERE staff_id = ?`,json["staff_id"]);
+    const [res_staff] = await db.query(`SELECT * FROM staff WHERE staff_id = ? `,json["staff_id"]);
 
     if (res_staff && res_staff.length > 0) {
       res.send({

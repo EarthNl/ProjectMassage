@@ -10,10 +10,10 @@ import {
 } from "@material-tailwind/react";
 import { useEffect, useState } from "react";
 import {
-  DeleteServiceService,
-  GetServiceService,
-  InsertServiceService,
-  UpdateServiceService,
+  GetService,
+  InsertService,
+  UpdateService,
+  DeleteService,
 } from "@/services/Service.service";
 import ReactPaginate from "react-paginate";
 import { FormDialog } from "./formDialog";
@@ -35,7 +35,7 @@ export function ServiceTable() {
   }, [page, pageSize]);
 
   const fetchDataService = async () => {
-    const res = await GetServiceService(page, pageSize, search);
+    const res = await GetService(page, pageSize, search);
     if (res) {
       setResult(res.data);
       setTotalCount(res.totalCount);
@@ -61,14 +61,14 @@ export function ServiceTable() {
 
   const onSubmitService = async (formData,setBase64Imgs,setFiles) => {
     if (serviceForm && serviceForm.service_id) {
-      const resp = await UpdateServiceService(formData);
+      const resp = await UpdateService(formData);
       if (resp && resp.status === "200") {
         await fetchDataService();
         handleCloseForm();
         setFiles([])
       }
     } else {
-      const resp = await InsertServiceService(formData);
+      const resp = await InsertService(formData);
       if (resp && resp.status === "200") {
         await fetchDataService();
         handleCloseForm();
@@ -78,7 +78,7 @@ export function ServiceTable() {
   };
 
   const onDeleteService = async (service_id) => {
-    const resp = await DeleteServiceService(service_id);
+    const resp = await DeleteService(service_id);
     if (resp && resp.status === "200") {
       await fetchDataService();
     }

@@ -15,16 +15,16 @@ export function Home() {
       path: "/home",
       icon: ChartPieIcon,
     },
-    {
-      name: "Service",
-      path: "/userservice",
-      icon: UserIcon,
-    },
-    {
-      name: "Booking",
-      path: "/userbooking",
-      icon: UserPlusIcon,
-    },
+    // {
+    //   name: "Service",
+    //   path: "/userservice",
+    //   icon: UserIcon,
+    // },
+    // {
+    //   name: "Booking",
+    //   path: "/userbooking",
+    //   icon: UserPlusIcon,
+    // },
     {
       name: "SignIn",
       path: "/sign-in",

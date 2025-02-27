@@ -66,7 +66,7 @@ router.post("/get", async (req, res) => {
   }
 });
 
-// //getbyid
+//getbyid
 router.post('/getbyid', async (req, res) => {
 try {
     const json = req.body;
@@ -80,7 +80,11 @@ try {
       return;
     }
 
-    const [res_service] = await db.query(`SELECT * FROM service WHERE service_id = ?`,json["service_id"]);
+    const [res_service] = await db.query(`SELECT A.*
+      ,GROUP_CONCAT(B.image_url) AS imgs
+      FROM service AS A
+      LEFT JOIN (SELECT * FROM service_images) AS B ON B.service_id = A.service_id
+      WHERE A.service_id = ?`,[json["service_id"]]);
 
     if (res_service && res_service.length > 0) {
       res.send({
@@ -102,6 +106,40 @@ try {
     res.send({ status: "500", message: 'ERROR',detail:err.message });
   }
 });
+
+router.post('/get-list', async (req, res) => {
+  try {
+      const [res_service] = await db.query(`SELECT A.*
+        ,(
+          SELECT image_url FROM service_images 
+          WHERE service_id = A.service_id 
+          ORDER BY image_idx DESC LIMIT 1
+         ) AS image_url
+         FROM service AS A
+        
+        
+        
+        `);
+      if (res_service && res_service.length > 0) {
+        res.send({
+          data: res_service,
+          status: "200",
+          message: "SUCCESS",
+          detail: "successful",
+        });
+        return;
+      }
+  
+       res.send({
+         status: "404",
+         message: "WARNING",
+         detail: "No Data",
+       });
+  
+    } catch (err) {
+      res.send({ status: "500", message: 'ERROR',detail:err.message });
+    }
+  });
 
 //insert
 router.post("/insert", async (req, res) => {
