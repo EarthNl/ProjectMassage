@@ -121,7 +121,7 @@ export function UserService() {
                     onClick={() => {
                       if (result.service_id)
                         navigate("/home/userservice/userbooking", {
-                          state: service_id,
+                          state: {service_id},
                         });
                     }}
                     variant="filled"

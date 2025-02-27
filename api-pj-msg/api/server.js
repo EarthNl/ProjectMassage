@@ -5,7 +5,7 @@ var bodyParser = require("body-parser");
 const apiUser = require("./api-user");
 const apiStaff = require("./api-staff");
 const apiService = require("./api-service");
-
+const apiBooking = require("./api-booking");
 
 router.use(cors());
 router.use(bodyParser.json({ limit: "50mb" }));
@@ -30,6 +30,6 @@ router.use("/uploads", express.static("uploads"));
 router.use("/user", apiUser);
 router.use("/staff", apiStaff);
 router.use("/service", apiService);
-
+router.use("/booking", apiBooking);
 
 module.exports = router;

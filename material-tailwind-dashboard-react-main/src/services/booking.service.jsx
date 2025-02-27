@@ -1,10 +1,10 @@
 import axios from "@/common/axios";
-import { serviceService } from "@/helpers/contents";
+import { bookingService } from "@/helpers/contents";
 
-export const GetService = async (page, pageSize, search) => {
+export const GetBookingService = async (page, pageSize, search) => {
   try {
     const body = { page, pageSize, search };
-    let res = await axios.post(serviceService.GET_SERVICE_URL, body);
+    let res = await axios.post(bookingService.GET_BOOKING_URL, body);
     let json = await res.data;
     if (json && json.status === "200") {
       return json;
@@ -15,10 +15,10 @@ export const GetService = async (page, pageSize, search) => {
   }
 };
 
-export const GetByIdServie = async (service_id) => {
+export const GetByIdBookingServie = async (service_id) => {
   try {
     const body = {service_id}
-    let res = await axios.post(serviceService.GETBYID_SERVICE_URL,body);
+    let res = await axios.post(bookingService.GETBYID_BOOKING_URL,body);
     let json = await res.data;
     if (json && json.status === "200") {
       return json.data;
@@ -29,9 +29,9 @@ export const GetByIdServie = async (service_id) => {
   }
 };
 
-export const GetListService = async () => {
+export const GetListBookingService = async () => {
   try {
-    let res = await axios.post(serviceService.GETLIST_SERVICE_URL);
+    let res = await axios.post(bookingService.GET_BOOKING_LIST_URL);
     let json = await res.data;
     if (json && json.status === "200") {
       return json.data;
@@ -43,10 +43,10 @@ export const GetListService = async () => {
 };
 
 
-export const InsertService = async (formData) => {
+export const InsertBookingService = async (formData) => {
   try {
     const body = { ...formData };
-    let res = await axios.post(serviceService.INSERT_SERVICE_URL, body);
+    let res = await axios.post(bookingService.INSERT_BOOKING_URL, body);
     let json = await res.data;
     return json;
   } catch (error) {
@@ -55,10 +55,10 @@ export const InsertService = async (formData) => {
 };
 
 
-export const UpdateService = async (formData) => {
+export const UpdateBookingService = async (formData) => {
   try {
     const body = { ...formData };
-    let res = await axios.post(serviceService.UPDATE_SERVICE_URL, body);
+    let res = await axios.post(bookingService.UPDATE_BOOKING_URL, body);
     let json = await res.data;
     return json;
   } catch (error) {
@@ -66,10 +66,10 @@ export const UpdateService = async (formData) => {
   }
 };
 
-export const DeleteService = async (service_id) => {
+export const DeleteBookingService = async (service_id) => {
   try {
     const body = { service_id };
-    let res = await axios.post(serviceService.DELETE_SERVICE_URL, body);
+    let res = await axios.post(bookingService.DELETE_BOOKING_URL, body);
     let json = await res.data;
     return json;
   } catch (error) {

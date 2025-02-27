@@ -1,6 +1,6 @@
 export const staffService = {
     GET_STAFF_URL: "staff/get",
-    GET_STAFF_LIST_URL: "staff/get-list",
+    GETLIST_STAFF_URL: "staff/get-list",
     GETBYID_STAFF_URL: "staff/getbyid",
     INSERT_STAFF_URL: "staff/insert",
     UPDATE_STAFF_URL: "staff/update",
@@ -19,11 +19,20 @@ export const userService = {
 
 export const serviceService = {
     GET_SERVICE_URL: "service/get",
-    GET_SERVICE_LIST_URL: "service/get-list",
+    GETLIST_SERVICE_URL: "service/get-list",
     GETBYID_SERVICE_URL: "service/getbyid",
     INSERT_SERVICE_URL: "service/insert",
     UPDATE_SERVICE_URL: "service/update",
     DELETE_SERVICE_URL: "service/delete",
+}
+
+export const bookingService = {
+    GET_BOOKING_URL: "booking/get",
+    GETLIST_BOOKING_URL: "booking/get-list",
+    GETBYID_BOOKING_URL: "booking/getbyid",
+    INSERT_BOOKING_URL: "booking/insert",
+    UPDATE_BOOKING_URL: "booking/update",
+    DELETE_BOOKING_URL: "booking/delete",
 }
 
 export const removeAllStorage = async () => {

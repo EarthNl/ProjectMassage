@@ -17,7 +17,7 @@ export const GetStaffService = async (page, pageSize, search) => {
 
 export const GetStaffListService = async () => {
   try {
-    let res = await axios.post(staffService.GET_STAFF_LIST_URL);
+    let res = await axios.post(staffService.GETLIST_STAFF_URL);
     let json = await res.data;
     if (json && json.status === "200") {
       return json.data;
