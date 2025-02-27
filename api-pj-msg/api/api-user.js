@@ -10,7 +10,7 @@ router.post("/login", async (req, res) => {
   try {
     const json = req.body;
 
-    if (!json["user_name"] || !json["user_pass"]) {
+    if (!json["user_email"] || !json["user_pass"]) {
       res.send({
         status: "400",
         message: "WARNING",
@@ -26,14 +26,14 @@ router.post("/login", async (req, res) => {
             ,role AS user_role
             ,phone AS user_phone
             FROM user 
-            WHERE name = ? 
+            WHERE email = ? 
             AND password = ?`,
-      [json["user_name"], md5(json["user_pass"])]
+      [json["user_email"], md5(json["user_pass"])]
     );
 
     if (!res_user || !res_user[0]) {
       res.send({
-        status: "404",
+        status: "401",
         message: "WARNING",
         detail: "Login error",
       });
@@ -56,7 +56,7 @@ router.post("/authen", async (req, res) => {
   try {
     const json = req.body;
 
-    if (!json) {
+    if (!json["user_name"] || !json["user_role"]) {
       res.send({
         status: "400",
         message: "WARNING",
@@ -72,8 +72,8 @@ router.post("/authen", async (req, res) => {
       ,role AS user_role
       ,phone AS user_phone
       FROM user 
-      WHERE name = ?`,
-      [json["user_name"]]
+      WHERE name = ? AND role = ?`,
+      [json["user_name"],json["user_role"]]
     );
 
     if (res_user && res_user.length > 0) {
@@ -87,7 +87,7 @@ router.post("/authen", async (req, res) => {
     }
 
     res.send({
-      status: "404",
+      status: "401",
       message: "WARNING",
       detail: "No Data",
     });

@@ -1,5 +1,43 @@
 import axios from "@/common/axios";
 import { userService } from "@/helpers/contents";
+import Swal from "sweetalert2";
+
+export const UserLoginService = async (formData) => {
+  try {
+    const body = {
+      user_email: formData.user_email,
+      user_pass: formData.user_pass,
+    };
+    let res = await axios.post(userService.LOGIN_URL, body);
+    let json = await res.data;
+    return json;
+  } catch (error) {
+    return Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "NetWorkError!",
+      showConfirmButton: false,
+      showCloseButton: false,
+    });
+  }
+};
+
+export const UserAuthService = async (user_name,user_role) => {
+  try {
+    const body = {user_name,user_role};
+    let res = await axios.post(userService.AUTHEN_URL, body);
+    let json = await res.data;
+    return json;
+  } catch (error) {
+    return Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "NetWorkError!",
+      showConfirmButton: false,
+      showCloseButton: false,
+    });
+  }
+};
 
 export const GetUserService = async (page, pageSize, search) => {
   try {
@@ -11,10 +49,15 @@ export const GetUserService = async (page, pageSize, search) => {
     }
     return null;
   } catch (error) {
-    console.log("error", error);
+    return Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "NetWorkError!",
+      showConfirmButton: false,
+      showCloseButton: false,
+    });
   }
 };
-
 
 export const InsertUserService = async (formData) => {
   try {
@@ -23,10 +66,15 @@ export const InsertUserService = async (formData) => {
     let json = await res.data;
     return json;
   } catch (error) {
-    console.log("error", error);
+    return Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "NetWorkError!",
+      showConfirmButton: false,
+      showCloseButton: false,
+    });
   }
 };
-
 
 export const UpdateUserService = async (formData) => {
   try {
@@ -35,18 +83,29 @@ export const UpdateUserService = async (formData) => {
     let json = await res.data;
     return json;
   } catch (error) {
-    console.log("error", error);
+    return Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "NetWorkError!",
+      showConfirmButton: false,
+      showCloseButton: false,
+    });
   }
 };
 
 export const DeleteUserService = async (user_id) => {
   try {
-    const body = {user_id};
+    const body = { user_id };
     let res = await axios.post(userService.DELETE_USER_URL, body);
     let json = await res.data;
     return json;
   } catch (error) {
-    console.log("error", error);
+    return Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "NetWorkError!",
+      showConfirmButton: false,
+      showCloseButton: false,
+    });
   }
 };
-

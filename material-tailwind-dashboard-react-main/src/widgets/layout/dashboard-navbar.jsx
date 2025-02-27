@@ -19,17 +19,17 @@ import {
   CreditCardIcon,
   Bars3Icon,
 } from "@heroicons/react/24/solid";
-import {
-  useMaterialTailwindController,
-  setOpenSidenav,
-} from "@/context";
+import { useMaterialTailwindController, setOpenSidenav } from "@/context";
+import { removeAllStorage } from "@/helpers/contents";
 
 export function DashboardNavbar() {
   const [controller, dispatch] = useMaterialTailwindController();
   const { fixedNavbar, openSidenav } = controller;
   const { pathname } = useLocation();
   const [layout, page] = pathname.split("/").filter((el) => el !== "");
-
+  const handleLogin = () => {
+    removeAllStorage();
+  };
   return (
     <Navbar
       color={fixedNavbar ? "white" : "transparent"}
@@ -70,7 +70,6 @@ export function DashboardNavbar() {
           </Typography>
         </div>
         <div className="flex items-center">
-          
           <IconButton
             variant="text"
             color="blue-gray"
@@ -79,23 +78,27 @@ export function DashboardNavbar() {
           >
             <Bars3Icon strokeWidth={3} className="h-6 w-6 text-blue-gray-500" />
           </IconButton>
-          <Link to="/auth/sign-in">
-            <Button
-              variant="text"
-              color="blue-gray"
-              className="hidden items-center gap-1 px-4 xl:flex normal-case"
-            >
-              <UserCircleIcon className="h-5 w-5 text-blue-gray-500" />
-              Sign In
-            </Button>
-            <IconButton
-              variant="text"
-              color="blue-gray"
-              className="grid xl:hidden"
-            >
-              <UserCircleIcon className="h-5 w-5 text-blue-gray-500" />
-            </IconButton>
-          </Link>
+          <Menu>
+            <MenuHandler>
+              <Button
+                variant="text"
+                color="blue-gray"
+                className="hidden items-center gap-1 px-4 xl:flex normal-case"
+              >
+                <UserCircleIcon className="h-5 w-5 text-blue-gray-500" />
+                Sign In
+              </Button>
+            </MenuHandler>
+            <MenuList className="w-max border-0">
+              <MenuItem
+                onClick={handleLogin}
+                className="flex items-center gap-3"
+              >
+                <Typography>ออกจากระบบ</Typography>
+              </MenuItem>
+            </MenuList>
+          </Menu>
+
           <Menu>
             <MenuHandler>
               <IconButton variant="text" color="blue-gray">
@@ -174,7 +177,6 @@ export function DashboardNavbar() {
               </MenuItem>
             </MenuList>
           </Menu>
-          
         </div>
       </div>
     </Navbar>

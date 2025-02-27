@@ -9,7 +9,7 @@ import {
 } from "@material-tailwind/react";
 import { useMaterialTailwindController, setOpenSidenav } from "@/context";
 
-export function Sidenav({ brandImg, brandName, routes }) {
+export function Sidenav({ brandImg, brandName, router }) {
   const [controller, dispatch] = useMaterialTailwindController();
   const { sidenavColor, sidenavType, openSidenav } = controller;
   const sidenavTypes = {
@@ -47,22 +47,21 @@ export function Sidenav({ brandImg, brandName, routes }) {
         </IconButton>
       </div>
       <div className="m-4">
-        {routes.map(({ layout, title, pages }, key) => (
-          <ul key={key} className="mb-4 flex flex-col gap-1">
-            {title && (
+          <ul className="mb-4 flex flex-col gap-1">
+            {router && router && (
               <li className="mx-3.5 mt-4 mb-2">
                 <Typography
                   variant="small"
                   color={sidenavType === "dark" ? "white" : "blue-gray"}
                   className="font-black uppercase opacity-75"
                 >
-                  {title}
+                  {router.title}
                 </Typography>
               </li>
             )}
-            {pages.map(({ icon, name, path }) => (
-              <li key={name}>
-                <NavLink to={`/${layout}${path}`}>
+            {router && router.pages.map(({ icon, name, path },key) => (
+              <li key={key}>
+                <NavLink to={`/${router.layout}${path}`}>
                   {({ isActive }) => (
                     <Button
                       variant={isActive ? "gradient" : "text"}
@@ -89,7 +88,6 @@ export function Sidenav({ brandImg, brandName, routes }) {
               </li>
             ))}
           </ul>
-        ))}
       </div>
     </aside>
   );
@@ -103,7 +101,7 @@ Sidenav.defaultProps = {
 Sidenav.propTypes = {
   brandImg: PropTypes.string,
   brandName: PropTypes.string,
-  routes: PropTypes.arrayOf(PropTypes.object).isRequired,
+  router: PropTypes.object,
 };
 
 Sidenav.displayName = "/src/widgets/layout/sidnave.jsx";

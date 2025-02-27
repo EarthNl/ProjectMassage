@@ -59,18 +59,20 @@ export function ServiceTable() {
   const handleOpenDetail = (item) => setServiceDetail(item);
   const handleCloseDetail = () => setServiceDetail(null);
 
-  const onSubmitService = async (formData) => {
+  const onSubmitService = async (formData,setBase64Imgs,setFiles) => {
     if (serviceForm && serviceForm.service_id) {
       const resp = await UpdateServiceService(formData);
       if (resp && resp.status === "200") {
         await fetchDataService();
         handleCloseForm();
+        setFiles([])
       }
     } else {
       const resp = await InsertServiceService(formData);
       if (resp && resp.status === "200") {
         await fetchDataService();
         handleCloseForm();
+        setFiles([])
       }
     }
   };

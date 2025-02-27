@@ -57,7 +57,7 @@ export function FormDialog({
     if (base64Imgs && base64Imgs.length > 0) {
       newValue = { ...value, service_imgs: base64Imgs };
     }
-    onSubmit(newValue);
+    onSubmit(newValue,setBase64Imgs(),setFiles());
   };
 
   return (

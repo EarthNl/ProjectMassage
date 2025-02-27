@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import {
-  Navbar as MTNavbar,
+  Navbar as MTNavber,
   Collapse,
   Typography,
   Button,
@@ -10,7 +10,7 @@ import {
 } from "@material-tailwind/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
-export function Navbar({ brandName, routes, action }) {
+export function HomeNavbar({ brandName, routes, action }) {
   const [openNav, setOpenNav] = React.useState(false);
 
   React.useEffect(() => {
@@ -20,21 +20,24 @@ export function Navbar({ brandName, routes, action }) {
     );
   }, []);
 
+  console.log('routes',routes);
+  
+
   const navList = (
     <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
-      {routes.map(({ name, path, icon }) => (
+      {routes && routes.length > 0 && routes.map(({ name, path, icon },key) => (
         <Typography
-          key={name}
+          key={key}
           as="li"
           variant="small"
           color="blue-gray"
           className="capitalize"
         >
-          <Link to={path} className="flex items-center gap-1 p-1 font-normal">
-            {icon &&
+          <Link to={path} className="flex items-center gap-1 p-1 font-normal text-black">
+            {/* {icon &&
               React.createElement(icon, {
                 className: "w-[18px] h-[18px] opacity-50 mr-1",
-              })}
+              })} */}
             {name}
           </Link>
         </Typography>
@@ -43,7 +46,7 @@ export function Navbar({ brandName, routes, action }) {
   );
 
   return (
-    <MTNavbar className="p-3">
+    <MTNavber className="p-3">
       <div className="container mx-auto flex items-center justify-between text-blue-gray-900">
         <Link to="/">
           <Typography
@@ -54,9 +57,9 @@ export function Navbar({ brandName, routes, action }) {
           </Typography>
         </Link>
         <div className="hidden lg:block">{navList}</div>
-        {React.cloneElement(action, {
+        {/* {React.cloneElement(action, {
           className: "hidden lg:inline-block",
-        })}
+        })} */}
         <IconButton
           variant="text"
           size="sm"
@@ -73,23 +76,23 @@ export function Navbar({ brandName, routes, action }) {
       <Collapse open={openNav}>
         <div className="container mx-auto">
           {navList}
-          {React.cloneElement(action, {
+          {/* {React.cloneElement(action, {
             className: "w-full block lg:hidden",
-          })}
+          })} */}
         </div>
       </Collapse>
-    </MTNavbar>
+    </MTNavber>
   );
 }
 
 
 
-Navbar.propTypes = {
+HomeNavbar.propTypes = {
   brandName: PropTypes.string,
   routes: PropTypes.arrayOf(PropTypes.object).isRequired,
   action: PropTypes.node,
 };
 
-Navbar.displayName = "/src/widgets/layout/navbar.jsx";
+HomeNavbar.displayName = "/src/widgets/layout/home-navbar.jsx";
 
-export default Navbar;
+export default HomeNavbar;

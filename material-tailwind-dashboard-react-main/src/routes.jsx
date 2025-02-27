@@ -9,7 +9,7 @@ import {
   ServerStackIcon,
   RectangleStackIcon,
 } from "@heroicons/react/24/solid";
-import SignUp from '@/pages/auth/sign-up'
+
 import {
   Home,
   Profile,
@@ -17,9 +17,9 @@ import {
   UserTable,
   ServiceTable,
   StaffTable,
-  ReviewTable,UserHome,UserService,UserBooking
+  ReviewTable,
 } from "@/pages/dashboard";
-
+import { SignIn, UserHome, UserService, UserBooking } from "./pages/home";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -27,8 +27,8 @@ const icon = {
 
 export const routes = [
   {
+    title:"Dashboard",
     layout: "dashboard",
-    role: "1",
     pages: [
       {
         icon: <HomeIcon {...icon} />,
@@ -72,6 +72,11 @@ export const routes = [
         path: "/reviewtable",
         element: <ReviewTable />,
       },
+    ],
+  },
+  {
+    layout: "home",
+    pages: [
       {
         icon: <HomeIcon {...icon} />,
         name: "UserHome",
@@ -90,22 +95,15 @@ export const routes = [
         path: "/userbooking",
         element: <UserBooking />,
       },
-    ],
-  },
-  {
-    title: "auth pages",
-    layout: "auth",
-    pages: [
 
       {
         icon: <RectangleStackIcon {...icon} />,
-        name: "sign up",
-        path: "/sign-up",
-        element: <SignUp />,
+        name: "sign in",
+        path: "/sign-in",
+        element: <SignIn />,
       },
     ],
   },
-  
 ];
 
 export default routes;

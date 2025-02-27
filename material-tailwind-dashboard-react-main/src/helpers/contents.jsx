@@ -7,6 +7,8 @@ export const staffService = {
 }
 
 export const userService = {
+    LOGIN_URL: "user/login",
+    AUTHEN_URL: "user/authen",
     GET_USER_URL: "user/get",
     GETBYID_USER_URL: "user/getbyid",
     INSERT_USER_URL: "user/insert",
@@ -23,7 +25,7 @@ export const serviceService = {
 }
 
 export const removeAllStorage = async () => {
-    let keys = ['', ''];
+    let keys = ['user', 'role'];
     keys.forEach(k => localStorage.removeItem(k))
     window.location.reload()
     return

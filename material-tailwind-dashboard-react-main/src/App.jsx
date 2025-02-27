@@ -1,23 +1,51 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import { Dashboard, Auth } from "@/layouts";
-import { getStorage } from "./helpers/contents";
+import { Dashboard,  Home } from "@/layouts";
+import { getStorage, removeAllStorage } from "./helpers/contents";
+import MyContext from "./contexts/MyContext";
+import ContextState from "./contexts/ContextState";
+import { useMemo } from "react";
+import { UserAuthService } from "./services/user.service";
 
 function App() {
-  const user_role = getStorage();
+  const state = ContextState();
+  const store = { ...state };
+
+  const userRole = getStorage("role");
+  const userName = getStorage("user");
+
+  useMemo(async () => {
+    if (userRole && userName) {
+      const res = await UserAuthService(userName,userRole);
+      if (res) {
+        if (res.status === "200") {
+          state.setUserData(res.data);
+        } else if (res.status === "401") {
+          removeAllStorage();
+        }
+      }
+    }
+  }, []);
+
+
   return (
-    <div className="w-full h-full">
-      {/* {user_role ? (  */}
-        <Routes>
-          <Route path="/dashboard/*" element={<Dashboard />} />
-          <Route path="*" element={<Navigate to="/dashboard/home" replace />} />
-        </Routes>
-       {/* ) : ( 
-         <Routes>
-          <Route path="/auth/*" element={<Auth />} />
-          <Route path="*" element={<Navigate to="/auth/sign-in" replace />} />
-        </Routes> 
-       )}  */}
-    </div>
+    <MyContext.Provider value={store}>
+      <div className="w-full h-full">
+        {userRole && userName ? (
+          <Routes>
+            <Route path="/dashboard/*" element={<Dashboard />} />
+            <Route
+              path="*"
+              element={<Navigate to="/dashboard/home" replace />}
+            />
+          </Routes>
+        ) : (
+          <Routes>
+            <Route path="/home/*" element={<Home />} />
+            <Route path="*" element={<Navigate to="/home" replace />} />
+          </Routes>
+        )}
+      </div>
+    </MyContext.Provider>
   );
 }
 
