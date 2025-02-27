@@ -35,6 +35,11 @@ export const bookingService = {
     DELETE_BOOKING_URL: "booking/delete",
 }
 
+export const reportService = {
+    REPORT_COUNT_URL: "report/report-count",
+    REPORT_BOOKING_URL: "report/report-booking",
+}
+
 export const removeAllStorage = async () => {
     let keys = ['user', 'role'];
     keys.forEach(k => localStorage.removeItem(k))

@@ -6,6 +6,8 @@ const apiUser = require("./api-user");
 const apiStaff = require("./api-staff");
 const apiService = require("./api-service");
 const apiBooking = require("./api-booking");
+const apiReport = require("./api-report");
+
 
 router.use(cors());
 router.use(bodyParser.json({ limit: "50mb" }));
@@ -31,5 +33,6 @@ router.use("/user", apiUser);
 router.use("/staff", apiStaff);
 router.use("/service", apiService);
 router.use("/booking", apiBooking);
+router.use("/report", apiReport);
 
 module.exports = router;
