@@ -71,6 +71,7 @@ router.post("/authen", async (req, res) => {
       ,name AS user_name
       ,role AS user_role
       ,phone AS user_phone
+      ,name AS user_email
       FROM user 
       WHERE name = ? AND role = ?`,
       [json["user_name"],json["user_role"]]
