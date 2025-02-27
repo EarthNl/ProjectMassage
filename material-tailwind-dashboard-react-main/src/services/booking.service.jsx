@@ -66,9 +66,9 @@ export const UpdateBookingService = async (formData) => {
   }
 };
 
-export const DeleteBookingService = async (service_id) => {
+export const DeleteBookingService = async (booking_id) => {
   try {
-    const body = { service_id };
+    const body = { booking_id };
     let res = await axios.post(bookingService.DELETE_BOOKING_URL, body);
     let json = await res.data;
     return json;

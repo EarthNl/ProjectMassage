@@ -115,7 +115,7 @@ export function UserBooking() {
     const res = await InsertBookingService(formData);
     if (res && res.status) {
       switch (res.status) {
-        case "":
+        case "200":
           setOpen(false)
           return;
         default:

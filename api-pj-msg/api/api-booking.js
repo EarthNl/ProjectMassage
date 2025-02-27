@@ -31,7 +31,10 @@ router.post("/get", async (req, res) => {
     const [res_total] = await db.query(`SELECT COUNT(*) AS total FROM booking WHERE CONCAT_WS(' ',name) LIKE '%' ? '%'`,[json["search"]]);
     const [res_booking] = await db.query(`
         SELECT A.*
+        ,B.name AS service_name
+        ,B.duration AS service_duration
         FROM booking AS A
+        LEFT JOIN service AS B ON B.service_id = A.service_id
         WHERE  CONCAT_WS(' ',A.name) LIKE '%' ? '%' 
         GROUP BY booking_id
         ORDER BY A.creationDate DESC 
@@ -78,7 +81,12 @@ try {
       return;
     }
 
-    const [res_booking] = await db.query(`SELECT A.* FROM booking AS A WHERE A.booking_id = ?`,[json["booking_id"]]);
+    const [res_booking] = await db.query(`SELECT A.* 
+      ,(
+      SELECT name FROM booking_images 
+      WHERE service_id = A.service_id  LIMIT 1
+      ) AS service_name
+      FROM booking AS A WHERE A.booking_id = ?`,[json["booking_id"]]);
 
     if (res_booking && res_booking.length > 0) {
       res.send({
@@ -104,11 +112,6 @@ try {
 router.post('/get-list', async (req, res) => {
   try {
       const [res_booking] = await db.query(`SELECT A.*
-        ,(
-          SELECT image_url FROM booking_images 
-          WHERE booking_id = A.booking_id 
-          ORDER BY image_idx DESC LIMIT 1
-         ) AS image_url
          FROM booking AS A
         
         
@@ -192,43 +195,20 @@ router.post("/update", async (req, res) => {
     const [res_booking] = await db.query(`SELECT * FROM booking WHERE booking_id = ?`,[json["booking_id"]]);
 
     if (res_booking && res_booking.length > 0) {
-
-      if (json["booking_imgs"] && json["booking_imgs"].length > 0) {
-
-        //ลบรูปเก่า
-        const [oldimgs] = await db.query(`SELECT * FROM booking_images WHERE booking_id = ?`,[json["booking_id"]]);
-
-        if (oldimgs && oldimgs.length > 0) {
-          oldimgs.forEach(async (emt) => {
-            removefile(emt.image_url);
-          });
-          await db.query(`DELETE FROM booking_images WHERE booking_id = ?`, [
-            json["booking_id"],
-          ]);
-        }
-
-        json["booking_imgs"].forEach(async (emt) => {
-          const img_idv4 = uuidv4();
-          const img_code = padCRC32(img_idv4).toString();
-          const filePath = addfileBase64(emt, `uploads/rooms/${img_code}`);
-          await db.query(
-            `INSERT INTO booking_images (image_code,booking_id,image_url) VALUES (?,?,?)`,
-            [img_code, json["booking_id"], filePath ? filePath : ""]
-          );
-        });
-      }
-
-      await db.query(
+       await db.query(
         `UPDATE booking SET 
-        name = ?
-        ,price = ?
-        ,duration = ?
-        ,description = ? WHERE booking_id = ?`,
+          name = ?
+         ,date = ?
+         ,time = ?
+         ,status = ?
+         ,service_id = ?
+        WHERE booking_id = ?`,
         [
-          json["booking_name"],
-          json["booking_price"],
-          json["booking_duration"],
-          json["booking_desc"],
+          json["customer_name"],
+          json["booking_date"],
+          json["booking_time"],
+          json["booking_status"],
+          json["service_id"],
           json["booking_id"],
         ]
       );
@@ -269,16 +249,8 @@ router.post('/delete', async (req, res) => {
       const [res_booking] = await db.query(`SELECT * FROM booking WHERE booking_id = ?`, [json["booking_id"]]);
     
       if (res_booking && res_booking.length > 0) {
+        
         //ลบรูปเก่า
-        const [oldimgs] = await db.query(`SELECT * FROM booking_images WHERE booking_id = ?`,[json["booking_id"]]);
-
-        if (oldimgs && oldimgs.length > 0) {
-            oldimgs.forEach(async (emt) => {
-            removefile(emt.image_url);
-            });
-            await db.query(`DELETE FROM booking_images WHERE booking_id = ?`, [json["booking_id"],]);
-        }
-   
         await db.query(`DELETE FROM booking WHERE booking_id = ?`,[json["booking_id"]]);
 
         res.send({
