@@ -46,7 +46,7 @@ export function HomeNavbar({ brandName, routes, action }) {
   );
 
   return (
-    <MTNavber className="p-3">
+    <MTNavber fullWidth>
       <div className="container mx-auto flex items-center justify-between text-blue-gray-900">
         <Link to="/">
           <Typography

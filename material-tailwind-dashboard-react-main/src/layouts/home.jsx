@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import {
   ChartPieIcon,
   UserIcon,
@@ -11,35 +11,40 @@ import routes from "@/routes";
 export function Home() {
   const navbarRoutes = [
     {
-      name: "UserBooking",
-      path: "/home/userhome",
+      name: "Home",
+      path: "/home",
       icon: ChartPieIcon,
     },
     {
-      name: "UserBooking",
-      path: "/home/userservice",
+      name: "Service",
+      path: "/userservice",
       icon: UserIcon,
     },
     {
-      name: "UserBooking",
-      path: "/home/userbooking",
+      name: "Booking",
+      path: "/userbooking",
       icon: UserPlusIcon,
     },
     {
       name: "SignIn",
-      path: "/home/sign-in",
+      path: "/sign-in",
       icon: ArrowRightOnRectangleIcon,
     },
   ];
-  const pages = routes.find((fd) => fd.layout === "home")?.pages;
+  const dashRoutes = routes.find((fd) => fd.layout === "home");
   return (
-    <div className="relative min-h-screen w-full">
-      <HomeNavbar brandName="ไม้งาม นวดเพื่อสุขภาพ" routes={navbarRoutes} />
-      <Routes>
-        {pages.map(({ path, element },key) => (
-          <Route key={key} exact path={path} element={element} />
-        ))}
-      </Routes>
+    <div className="h-screen py-12 w-full overflow-scroll">
+      <div className="absolute z-10 w-full top-0">
+        <HomeNavbar brandName="ไม้งาม นวดเพื่อสุขภาพ" routes={navbarRoutes} />
+      </div>
+      <div className="pt-14">
+        <Routes>
+          {dashRoutes.pages.map(({ path, element }, key) => (
+            <Route key={key} exact path={path} element={element} />
+          ))}
+          <Route path="*" element={<Navigate to="/home" replace />} />
+        </Routes>
+      </div>
     </div>
   );
 }

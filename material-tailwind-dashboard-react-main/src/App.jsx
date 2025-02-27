@@ -39,10 +39,7 @@ function App() {
             />
           </Routes>
         ) : (
-          <Routes>
-            <Route path="/home/*" element={<Home />} />
-            <Route path="*" element={<Navigate to="/home" replace />} />
-          </Routes>
+          <Home />
         )}
       </div>
     </MyContext.Provider>

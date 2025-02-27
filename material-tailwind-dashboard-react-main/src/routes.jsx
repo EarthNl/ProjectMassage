@@ -27,7 +27,7 @@ const icon = {
 
 export const routes = [
   {
-    title:"Dashboard",
+    title: "Dashboard",
     layout: "dashboard",
     pages: [
       {
@@ -76,11 +76,12 @@ export const routes = [
   },
   {
     layout: "home",
+
     pages: [
       {
         icon: <HomeIcon {...icon} />,
         name: "UserHome",
-        path: "/userhome",
+        path: "/home",
         element: <UserHome />,
       },
       {

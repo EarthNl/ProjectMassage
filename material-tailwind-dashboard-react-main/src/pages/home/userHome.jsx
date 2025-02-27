@@ -24,7 +24,7 @@ export function UserHome() {
         <div className="absolute top-0 h-full w-full bg-cover bg-center" />
         <div className="max-w-8xl container relative mx-auto">
           <div className="flex flex-wrap items-center ">
-            <Carousel loop="true" className="rounded-xl">
+            <Carousel loop="true" className="rounded-xl z-0">
               <div className="relative h-full w-full">
                 <img
                   src="https://d367pvje6v6lu5.cloudfront.net/pictures/images/000/121/251/big_slider_pic/2.png?1702301265"
