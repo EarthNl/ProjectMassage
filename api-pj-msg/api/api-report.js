@@ -13,7 +13,7 @@ router.post('/report-count', async (req, res) => {
             SELECT 
             SUM((SELECT price FROM service WHERE service_id = A.service_id)) AS income        
             FROM booking AS A     
-            WHERE MONTH(date) = MONTH(NOW()) AND status = "completed"`);
+            WHERE MONTH(A.date) = MONTH(NOW()) AND A.status = "completed"`);
 
         const countBooking = parseInt(count_booking[0].total);
         const countService = parseInt(count_service[0].total);        

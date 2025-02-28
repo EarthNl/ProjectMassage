@@ -175,11 +175,13 @@ router.post("/insert", async (req, res) => {
     }
  
     if (json["service_imgs"] && json["service_imgs"].length > 0) {
+         let idx = 0
         json["service_imgs"].forEach(async emt => {
+            idx = idx + 1
             const img_idv4 = uuidv4();
             const img_code = padCRC32(img_idv4).toString()
             const filePath = addfileBase64(emt,`uploads/rooms/${img_code}`);
-            await db.query(`INSERT INTO service_images (image_code,service_id,image_url) VALUES (?,?,?)`,[img_code,last_id,filePath ? filePath : ""]);
+            await db.query(`INSERT INTO service_images (image_idx,image_code,service_id,image_url) VALUES (?,?,?,?)`,[idx,img_code,last_id,filePath ? filePath : ""]);
         });
     }
  
@@ -225,15 +227,13 @@ router.post("/update", async (req, res) => {
             json["service_id"],
           ]);
         }
-
+        let idx = 0
         json["service_imgs"].forEach(async (emt) => {
+          idx = idx + 1
           const img_idv4 = uuidv4();
           const img_code = padCRC32(img_idv4).toString();
           const filePath = addfileBase64(emt, `uploads/rooms/${img_code}`);
-          await db.query(
-            `INSERT INTO service_images (image_code,service_id,image_url) VALUES (?,?,?)`,
-            [img_code, json["service_id"], filePath ? filePath : ""]
-          );
+          await db.query(`INSERT INTO service_images (image_idx,image_code,service_id,image_url) VALUES (?,?,?,?)`,[idx,img_code, json["service_id"], filePath ? filePath : ""]);
         });
       }
 
