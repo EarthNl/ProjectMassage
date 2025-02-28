@@ -245,6 +245,30 @@ export function UserBooking() {
                           </p>
                         )}
                     </div>
+                    <div>
+                      <Input
+                        type="time"
+                        label="เวลาเข้าใช้บริการ"
+                        name="booking_time"
+                        value={values.booking_time}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        error={
+                          touched &&
+                          touched.booking_time &&
+                          errors &&
+                          errors.booking_time
+                        }
+                      />
+                      {touched &&
+                        touched.booking_time &&
+                        errors &&
+                        errors.booking_time && (
+                          <p className="text-red-500 text-sm">
+                            {errors.booking_time}
+                          </p>
+                        )}
+                    </div>
                     <Input
                       label="ชื่อบริการ"
                       value={values.service_name}

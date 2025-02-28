@@ -21,12 +21,15 @@ import {
 } from "@heroicons/react/24/solid";
 import { useMaterialTailwindController, setOpenSidenav } from "@/context";
 import { removeAllStorage } from "@/helpers/contents";
+import { useContext } from "react";
+import MyContext from "@/contexts/MyContext";
 
 export function DashboardNavbar() {
   const [controller, dispatch] = useMaterialTailwindController();
   const { fixedNavbar, openSidenav } = controller;
   const { pathname } = useLocation();
   const [layout, page] = pathname.split("/").filter((el) => el !== "");
+  const { userData } = useContext(MyContext);
   const handleLogin = () => {
     removeAllStorage();
   };
@@ -80,14 +83,25 @@ export function DashboardNavbar() {
           </IconButton>
           <Menu>
             <MenuHandler>
-              <Button
-                variant="text"
-                color="blue-gray"
-                className="hidden items-center gap-1 px-4 xl:flex normal-case"
-              >
-                <UserCircleIcon className="h-5 w-5 text-blue-gray-500" />
-                Sign In
-              </Button>
+              {userData ? (
+                <Button
+                  variant="text"
+                  color="blue-gray"
+                  className="hidden items-center gap-1 px-4 xl:flex normal-case"
+                >
+                  <UserCircleIcon className="h-5 w-5 text-blue-gray-500" />
+                  {userData.user_name}
+                </Button>
+              ) : (
+                <Button
+                  variant="text"
+                  color="blue-gray"
+                  className="hidden items-center gap-1 px-4 xl:flex normal-case"
+                >
+                  <UserCircleIcon className="h-5 w-5 text-blue-gray-500" />
+                  ไม่พบชื่อ
+                </Button>
+              )}
             </MenuHandler>
             <MenuList className="w-max border-0">
               <MenuItem
@@ -99,7 +113,7 @@ export function DashboardNavbar() {
             </MenuList>
           </Menu>
 
-          <Menu>
+          {/* <Menu>
             <MenuHandler>
               <IconButton variant="text" color="blue-gray">
                 <BellIcon className="h-5 w-5 text-blue-gray-500" />
@@ -176,7 +190,7 @@ export function DashboardNavbar() {
                 </div>
               </MenuItem>
             </MenuList>
-          </Menu>
+          </Menu> */}
         </div>
       </div>
     </Navbar>

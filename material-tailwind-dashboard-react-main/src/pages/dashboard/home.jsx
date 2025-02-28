@@ -85,7 +85,7 @@ export function Home() {
           <table className="w-full min-w-[640px] table-auto">
             <thead>
               <tr>
-                {["ชื่อผู้จอง", "บริการ", "วันที่", "เวลา", "สถานะ"].map(
+                {["ชื่อผู้จอง", "บริการ", "วันที่", "เวลาเข้าใช้บริการ", "สถานะ"].map(
                   (el) => (
                     <th
                       key={el}
@@ -112,8 +112,6 @@ export function Home() {
                       service_name,
                       date,
                       time,
-                      startTime,
-                      endTime,
                       status,
                     },
                     key,
@@ -129,7 +127,7 @@ export function Home() {
                         <td className={className}>{service_name}</td>
                         <td className={className}>{date}</td>
                         <td className={className}>
-                          {time + "-" + time + " น."}
+                          {time}
                         </td>
                         <td className={className}>
                           {statusBooking.map((item) => {

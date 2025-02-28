@@ -13,7 +13,7 @@ router.post('/report-count', async (req, res) => {
             SELECT 
             SUM((SELECT price FROM service WHERE service_id = A.service_id)) AS income        
             FROM booking AS A     
-            WHERE MONTH(date) = MONTH(NOW())`);
+            WHERE MONTH(date) = MONTH(NOW()) AND status = "completed"`);
 
         const countBooking = parseInt(count_booking[0].total);
         const countService = parseInt(count_service[0].total);        
@@ -45,7 +45,7 @@ router.post("/report-booking", async (req, res) => {
       ,B.name AS service_name
       FROM booking AS A 
       LEFT JOIN service AS B ON B.service_id = A.service_id
-      ORDER BY creationDate`
+      ORDER BY creationDate DESC`
     );
 
     res.send({
