@@ -82,6 +82,8 @@ try {
 
     const [res_service] = await db.query(`SELECT A.*
       ,GROUP_CONCAT(B.image_url) AS imgs
+      ,(SELECT COUNT(*) FROM review WHERE service_id = A.service_id) AS count_review
+      ,(SELECT AVG(Cast(rating AS Float)) FROM review WHERE service_id = A.service_id) AS count_rating
       FROM service AS A
       LEFT JOIN (SELECT * FROM service_images) AS B ON B.service_id = A.service_id
       WHERE A.service_id = ?`,[json["service_id"]]);

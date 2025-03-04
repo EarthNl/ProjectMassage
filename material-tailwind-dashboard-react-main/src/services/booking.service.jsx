@@ -31,7 +31,7 @@ export const GetByIdBookingServie = async (service_id) => {
 
 export const GetListBookingService = async () => {
   try {
-    let res = await axios.post(bookingService.GET_BOOKING_LIST_URL);
+    let res = await axios.post(bookingService.GETLIST_BOOKING_URL);
     let json = await res.data;
     if (json && json.status === "200") {
       return json.data;

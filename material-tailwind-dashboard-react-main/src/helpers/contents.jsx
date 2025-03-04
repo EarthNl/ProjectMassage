@@ -35,6 +35,14 @@ export const bookingService = {
     DELETE_BOOKING_URL: "booking/delete",
 }
 
+export const reviewService = {
+    GET_REVIEW_URL: "review/get",
+    GETLIST_REVIEW_URL: "review/get-list",
+    GETBYID_REVIEW_URL: "review/getbyid",
+    INSERT_REVIEW_URL: "review/insert",
+    DELETE_REVIEW_URL: "review/delete",
+}
+
 export const reportService = {
     REPORT_COUNT_URL: "report/report-count",
     REPORT_BOOKING_URL: "report/report-booking",

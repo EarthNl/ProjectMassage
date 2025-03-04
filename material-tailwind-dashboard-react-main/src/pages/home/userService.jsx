@@ -92,7 +92,15 @@ export function UserService() {
                   >
                     คะแนนรีวิว
                   </Typography>
-                  <Rating value={4} readonly />
+                  {result.count_rating >= 0 && (
+                    <div className="flex gap-2">
+                      {result.count_review >= 0 && (
+                        <p>การรีวิว: {result.count_review} ครั้ง</p>
+                      )}
+                      <Rating value={parseInt(result.count_rating)} readonly />
+                      <p>คะแนน:{result.count_rating} ดาว</p>
+                    </div>
+                  )}
                   {result.name && (
                     <Typography className="mb-8 font-normal text-blue-gray-500">
                       {result.description}
@@ -121,7 +129,7 @@ export function UserService() {
                     onClick={() => {
                       if (result.service_id)
                         navigate("/home/userservice/userbooking", {
-                          state: {service_id},
+                          state: { service_id },
                         });
                     }}
                     variant="filled"

@@ -13,6 +13,7 @@ import {
   Input,
   Option,
   Select,
+  CardFooter,
 } from "@material-tailwind/react";
 import React, { useEffect, useMemo, useState } from "react";
 import { authorsTableData, statusBooking } from "@/data";
@@ -20,6 +21,7 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import { DeleteBookingService, GetBookingService, UpdateBookingService } from "@/services/booking.service";
 import { Form, Formik } from "formik";
 import { GetListService } from "@/services/service.service";
+import ReactPaginate from "react-paginate";
 
 export function BookingTable() {
   const [readOpen, setReadOpen] = useState(null);
@@ -55,6 +57,16 @@ export function BookingTable() {
   };
 
   const indexOfItem = (index) => page * pageSize - pageSize + (index + 1);
+
+
+  const onPageChange = async ({ selected }) => {
+    setPage(selected + 1);
+  };
+
+  const handleChangePageSize = async (number) => {
+    setPageSize(parseInt(number));
+  };
+
 
   const readHandleOpen = (item) => setReadOpen(item);
   const readHandleClose = () => setReadOpen(null);
@@ -185,6 +197,45 @@ export function BookingTable() {
             </tbody>
           </table>
         </CardBody>
+        <CardFooter>
+          <div className="flex">
+            <ReactPaginate
+              className="flex items-center gap-4 "
+              breakLabel="..."
+              nextLabel={
+                <Button
+                  variant="text"
+                  className="flex items-center gap-1 rounded-full"
+                >
+                  ถัดไป
+                </Button>
+              }
+              previousLabel={
+                <Button
+                  variant="text"
+                  className="flex items-center gap-1 rounded-full"
+                >
+                  ย้อนกลับ
+                </Button>
+              }
+              pageCount={totalPage}
+              renderOnZeroPageCount={null}
+              onPageChange={onPageChange}
+            />
+            <select
+              value={pageSize}
+              onChange={(e) => {
+                const value = e.target.value;
+                handleChangePageSize(value);
+              }}
+            >
+              <option value={5}>5</option>
+              <option value={10}>10</option>
+              <option value={20}>20</option>
+              {totalCount > 0 && <option value={totalCount}>ทั้งหมด</option>}
+            </select>
+          </div>
+        </CardFooter>
       </Card>
       {/* read modal */}
       <Dialog
