@@ -19,7 +19,13 @@ import {
   StaffTable,
   ReviewTable,
 } from "@/pages/dashboard";
-import { SignIn, UserHome, UserService, UserBooking } from "./pages/home";
+import {
+  SignIn,
+  UserHome,
+  UserService,
+  UserBooking,
+  Review,
+} from "./pages/home";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -102,6 +108,11 @@ export const routes = [
         name: "sign in",
         path: "/sign-in",
         element: <SignIn />,
+      },
+      {
+        name: "review",
+        path: "/review",
+        element: <Review />,
       },
     ],
   },

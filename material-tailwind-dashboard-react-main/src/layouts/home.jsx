@@ -11,7 +11,7 @@ import routes from "@/routes";
 export function Home() {
   const navbarRoutes = [
     {
-      name: "Home",
+      name: "หน้าหลัก",
       path: "/home",
       icon: ChartPieIcon,
     },
@@ -26,9 +26,13 @@ export function Home() {
     //   icon: UserPlusIcon,
     // },
     {
-      name: "SignIn",
+      name: "เข้าสู่ระบบ",
       path: "/sign-in",
       icon: ArrowRightOnRectangleIcon,
+    },
+    {
+      name: "review",
+      path: "/review",
     },
   ];
   const dashRoutes = routes.find((fd) => fd.layout === "home");

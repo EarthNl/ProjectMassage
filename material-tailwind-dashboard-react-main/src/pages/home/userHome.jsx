@@ -6,7 +6,8 @@ import {
   Typography,
   Button,
   IconButton,
-  Carousel, CardFooter
+  Carousel,
+  CardFooter,
 } from "@material-tailwind/react";
 import { FingerPrintIcon, UsersIcon } from "@heroicons/react/24/solid";
 import { PageTitle, Footer } from "@/widgets/layout";
@@ -20,13 +21,13 @@ import { apiLocal } from "@/common/axios";
 import { GetListService } from "@/services/service.service";
 
 export function UserHome() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [resStaff, setResStaff] = useState([]);
   const [resService, setResService] = useState([]);
 
   useEffect(() => {
-    fetchDataService()
-    fetchDataStaff()
+    fetchDataService();
+    fetchDataStaff();
   }, []);
 
   const fetchDataService = async () => {
@@ -35,21 +36,19 @@ export function UserHome() {
       setResService(result);
       return;
     }
-    setResService([])
-  };    
+    setResService([]);
+  };
   const fetchDataStaff = async () => {
     const result = await GetStaffListService();
     if (result) {
       setResStaff(result);
       return;
     }
-    setResStaff([])
-  };    
+    setResStaff([]);
+  };
   return (
     <>
       <section className="relative flex h-screen content-center items-center justify-center">
-        <div className="absolute top-0 h-full w-full bg-[url('/img/background-image.png')] bg-cover bg-center" />
-        <div className="absolute top-0 h-full w-full bg-cover bg-center" />
         <div className="max-w-8xl container relative mx-auto">
           <div className="flex flex-wrap items-center ">
             <Carousel loop="true" className="rounded-xl z-0">
@@ -59,7 +58,7 @@ export function UserHome() {
                   alt="image 1"
                   className="h-full w-full object-cover"
                 />
-                <div className="absolute inset-0 grid h-full w-full place-items-center bg-black/25">
+                <div className="absolute inset-0 grid h-full w-full place-items-center bg-black/50">
                   <div className="ml-auto mr-auto w-full px-4 text-center lg:w-8/12">
                     <Typography
                       variant="h1"
