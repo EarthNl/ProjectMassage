@@ -55,7 +55,7 @@ export function UserService() {
                 )}
               </div>
               <div className="grid grid-cols-5 gap-4">
-                {imgs.map((url, index) => (
+                {imgs && imgs.length > 0 && imgs.map((url, index) => (
                   <div key={index}>
                     <img
                       onClick={() => setActive(`${apiLocal}${url}`)}
@@ -92,13 +92,14 @@ export function UserService() {
                   >
                     คะแนนรีวิว
                   </Typography>
+                  {result.count_review >= 0 && (
+                        <Typography>การรีวิว: {result.count_review} ครั้ง</Typography>
+                      )}
                   {result.count_rating >= 0 && (
                     <div className="flex gap-2">
-                      {result.count_review >= 0 && (
-                        <p>การรีวิว: {result.count_review} ครั้ง</p>
-                      )}
-                      <Rating value={parseInt(result.count_rating)} readonly />
-                      <p>คะแนน:{result.count_rating} ดาว</p>
+         
+                      <Rating value={parseInt(result.count_rating ? result.count_rating : 0)} readonly />
+                      <p>คะแนน:{result.count_rating ? result.count_rating : 0} ดาว</p>
                     </div>
                   )}
                   {result.name && (
