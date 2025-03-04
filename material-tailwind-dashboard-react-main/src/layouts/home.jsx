@@ -26,6 +26,10 @@ export function Home() {
     //   icon: UserPlusIcon,
     // },
     {
+      name: "รีวิวจากลูกค้า",
+      path: "/reviewList",
+    },
+    {
       name: "เข้าสู่ระบบ",
       path: "/sign-in",
       icon: ArrowRightOnRectangleIcon,

@@ -25,6 +25,7 @@ import {
   UserService,
   UserBooking,
   Review,
+  ReviewList,
 } from "./pages/home";
 
 const icon = {
@@ -113,6 +114,11 @@ export const routes = [
         name: "review",
         path: "/review",
         element: <Review />,
+      },
+      {
+        name: "reviewList",
+        path: "/reviewList",
+        element: <ReviewList />,
       },
     ],
   },
