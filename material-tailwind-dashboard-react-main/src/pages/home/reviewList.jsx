@@ -33,7 +33,7 @@ export function ReviewList() {
 
   
   return (
-    <div className="p-6 max-w-2xl mx-auto">
+    <div className="p-6 max-w-2xl mx-auto bg-white rounded-xl">
       <Typography variant="h4" color="blue-gray" className="mb-4 text-center">
         รีวิวจากลูกค้า
       </Typography>
@@ -57,7 +57,7 @@ export function ReviewList() {
       <div className="mt-6 space-y-4">
         {reviews.length > 0 ? (
           reviews.map((rew, index) => (
-            <Card key={index} className="shadow-lg">
+            <Card key={index} className="shadow-lg bg-[#F1E3D3]">
               <CardBody>
                 <Typography variant="h6" color="blue-gray">
                   {rew.name} ({rew.service_name})

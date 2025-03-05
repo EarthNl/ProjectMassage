@@ -1,11 +1,6 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import {
-  ChartPieIcon,
-  UserIcon,
-  UserPlusIcon,
-  ArrowRightOnRectangleIcon,
-} from "@heroicons/react/24/solid";
-import { Footer, HomeNavbar } from "@/widgets/layout";
+
+import { HomeNavbar } from "@/widgets/layout";
 import routes from "@/routes";
 
 export function Home() {
@@ -13,7 +8,6 @@ export function Home() {
     {
       name: "หน้าหลัก",
       path: "/home",
-      icon: ChartPieIcon,
     },
     // {
     //   name: "Service",
@@ -32,20 +26,15 @@ export function Home() {
     {
       name: "เข้าสู่ระบบ",
       path: "/sign-in",
-      icon: ArrowRightOnRectangleIcon,
-    },
-    {
-      name: "review",
-      path: "/review",
     },
   ];
   const dashRoutes = routes.find((fd) => fd.layout === "home");
   return (
-    <div className="h-screen py-12 w-full overflow-scroll">
-      <div className="absolute z-10 w-full top-0">
+    <div className=" h-screen py-12 w-full overflow-scroll bg-[#F1E3D3]" >
+      <div className="absolute z-10 w-full top-0 ">
         <HomeNavbar brandName="ไม้งาม นวดเพื่อสุขภาพ" routes={navbarRoutes} />
       </div>
-      <div className="pt-14">
+      <div className="pt-14 ">
         <Routes>
           {dashRoutes.pages.map(({ path, element }, key) => (
             <Route key={key} exact path={path} element={element} />

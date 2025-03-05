@@ -34,7 +34,7 @@ export function SignIn() {
     console.log("res", res);
   };
   return (
-    <section className="m-8 flex gap-4">
+    <section className="m-5 mt-0 flex gap-4 bg-white rounded-3xl">
       <div className="w-full lg:w-3/5 mt-24">
         <div className="text-center">
           <Typography variant="h2" className="font-bold mb-4">

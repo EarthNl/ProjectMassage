@@ -1,6 +1,4 @@
-import React, { useMemo, useState } from "react";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
+import React, { useMemo, useState, useEffect } from "react";
 import * as yup from "yup";
 import {
   Dialog,
@@ -18,7 +16,9 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import { useLocation } from "react-router-dom";
 import { GetByIdServie } from "@/services/service.service";
 import { Form, Formik } from "formik";
-import { InsertBookingService } from "@/services/booking.service";
+import {
+  InsertBookingService,
+} from "@/services/booking.service";
 
 moment.locale("th");
 const localizer = momentLocalizer(moment);
@@ -87,7 +87,7 @@ export function UserBooking() {
     handleOpen();
   };
 
-  const onSubmitBooking = async (formData) => {
+  const onSubmitBookingOg = async (formData) => {
     const now = moment();
     const selectedDateTime = moment(`${booking.date}T${booking.startTime}:00`);
 
@@ -116,12 +116,47 @@ export function UserBooking() {
     if (res && res.status) {
       switch (res.status) {
         case "200":
-          setOpen(false)
+          setOpen(false);
           return;
         default:
-          console.log('',res.detail);          
+          console.log("", res.detail);
           return;
       }
+    }
+  };
+  const onSubmitBooking = async (formData) => {
+    const now = moment();
+    const selectedDateTime = moment(`${booking.date}T${booking.startTime}:00`);
+
+    if (selectedDateTime.isBefore(now)) {
+      alert("ไม่สามารถจองวันที่หรือเวลาที่ผ่านมาแล้วได้");
+      return;
+    }
+
+    // ตรวจสอบว่ามีการจองในช่วงเวลานี้แล้วหรือไม่
+    const isBooked = events.some(
+      (event) => event.start.getTime() === selectedDateTime.toDate().getTime(),
+    );
+    if (isBooked) {
+      alert("เวลานี้ถูกจองแล้ว");
+      return;
+    }
+
+    const res = await InsertBookingService(formData);
+    if (res && res.status === "200") {
+      // เพิ่มข้อมูลการจองลงใน `events`
+      const newBooking = {
+        title: `จองแล้ว: ${formData.customer_name}`,
+        start: selectedDateTime.toDate(),
+        end: selectedDateTime
+          .add(result?.service_duration ?? 60, "minutes")
+          .toDate(),
+      };
+
+      setEvents([...events, newBooking]); // อัปเดต state
+      setOpen(false);
+    } else {
+      console.log("เกิดข้อผิดพลาด: ", res?.detail);
     }
   };
 

@@ -48,7 +48,7 @@ export function Review() {
 
   return (
     <div className="p-6 max-w-lg mx-auto">
-      <Card>
+      <Card >
         <Formik
           initialValues={{
             customer_name: "",
@@ -122,7 +122,7 @@ export function Review() {
                   />
                 </div>
 
-                <Button  type="submit" fullWidth>
+                <Button className="bg-[#690B22]"  type="submit" fullWidth>
                   ส่งรีวิว
                 </Button>
               </CardBody>

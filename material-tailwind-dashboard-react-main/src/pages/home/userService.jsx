@@ -41,7 +41,7 @@ export function UserService() {
 
   return (
     <>
-      <section className="bg-white p-4 rounded-lg">
+      <section className="bg-white p-4 rounded-lg m-5">
         <div className="mt-4 flex flex-wrap items-center">
           <div className="mx-auto mt-24 flex w-full justify-center px-4 md:w-7/12 lg:mt-0">
             <div className="grid gap-4">
@@ -55,26 +55,28 @@ export function UserService() {
                 )}
               </div>
               <div className="grid grid-cols-5 gap-4">
-                {imgs && imgs.length > 0 && imgs.map((url, index) => (
-                  <div key={index}>
-                    <img
-                      onClick={() => setActive(`${apiLocal}${url}`)}
-                      src={`${apiLocal}${url}`}
-                      className="h-20 max-w-full cursor-pointer rounded-lg object-cover object-center"
-                      alt="gallery-image"
-                    />
-                  </div>
-                ))}
+                {imgs &&
+                  imgs.length > 0 &&
+                  imgs.map((url, index) => (
+                    <div key={index}>
+                      <img
+                        onClick={() => setActive(`${apiLocal}${url}`)}
+                        src={`${apiLocal}${url}`}
+                        className="h-20 max-w-full cursor-pointer rounded-lg object-cover object-center"
+                        alt="gallery-image"
+                      />
+                    </div>
+                  ))}
               </div>
             </div>
           </div>
           {result && (
             <div className="mx-auto -mt-8 w-full px-4 md:w-4/12">
-              <div className="mb-6 inline-flex h-16 w-16 items-center justify-center rounded-full bg-blue-gray-900 p-2 text-center shadow-lg">
+              <div className="mb-6 inline-flex h-16 w-16 items-center justify-center rounded-full bg-[#E07A5F] p-2 text-center shadow-lg">
                 <CalendarDaysIcon className="h-8 w-8 text-white " />
               </div>
 
-              <Card className="shadow-lg border shadow-gray-500/10 rounded-lg">
+              <Card className="shadow-lg border shadow-gray-500/10 rounded-lg bg-[#F1E3D3]">
                 <CardBody>
                   {result.name && (
                     <Typography
@@ -93,13 +95,22 @@ export function UserService() {
                     คะแนนรีวิว
                   </Typography>
                   {result.count_review >= 0 && (
-                        <Typography>การรีวิว: {result.count_review} ครั้ง</Typography>
-                      )}
+                    <Typography>
+                      การรีวิว: {result.count_review} ครั้ง
+                    </Typography>
+                  )}
                   {result.count_rating >= 0 && (
                     <div className="flex gap-2">
-         
-                      <Rating value={parseInt(result.count_rating ? result.count_rating : 0)} readonly />
-                      <p>คะแนน:{result.count_rating ? result.count_rating : 0} ดาว</p>
+                      <Rating
+                        value={parseInt(
+                          result.count_rating ? result.count_rating : 0,
+                        )}
+                        readonly
+                      />
+                      <p>
+                        คะแนน:{result.count_rating ? result.count_rating : 0}{" "}
+                        ดาว
+                      </p>
                     </div>
                   )}
                   {result.name && (
@@ -127,6 +138,7 @@ export function UserService() {
                 </CardBody>
                 <CardFooter>
                   <Button
+                    className="bg-[#690B22]"
                     onClick={() => {
                       if (result.service_id)
                         navigate("/home/userservice/userbooking", {
@@ -138,16 +150,27 @@ export function UserService() {
                   >
                     จองคิวรับบริการ
                   </Button>
+                  <Button
+                    onClick={() => {
+                      navigate("/review");
+                    }}
+                    variant="filled"
+                    fullWidth
+                    className="mt-4 bg-[#1B4D3E]"
+                  >
+                    รีวิวบริการ
+                  </Button>
                 </CardFooter>
               </Card>
             </div>
           )}
         </div>
-      </section>
-
-      <div className="bg-white">
+        <div className="mt-5">
         <Footer />
       </div>
+      </section>
+
+   
     </>
   );
 }

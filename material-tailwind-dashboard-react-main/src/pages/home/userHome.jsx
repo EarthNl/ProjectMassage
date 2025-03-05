@@ -1,21 +1,17 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Card,
   CardBody,
   CardHeader,
   Typography,
   Button,
-  IconButton,
   Carousel,
   CardFooter,
 } from "@material-tailwind/react";
-import { FingerPrintIcon, UsersIcon } from "@heroicons/react/24/solid";
-import { PageTitle, Footer } from "@/widgets/layout";
-import { FeatureCard, TeamCard } from "@/widgets/cards";
-import { featuresData, teamData, contactData } from "@/data";
-import { UserService } from "@/pages/home/userService";
 
-import { Link, useNavigate } from "react-router-dom";
+import { PageTitle, Footer } from "@/widgets/layout";
+
+import { useNavigate } from "react-router-dom";
 import { GetStaffListService } from "@/services/staff.service";
 import { apiLocal } from "@/common/axios";
 import { GetListService } from "@/services/service.service";
@@ -47,11 +43,16 @@ export function UserHome() {
     setResStaff([]);
   };
   return (
-    <>
-      <section className="relative flex h-screen content-center items-center justify-center">
+    <div className="bg-white m-5 mt-0 rounded-xl">
+      <section className="relative flex h-screen content-center items-center justify-center ">
         <div className="max-w-8xl container relative mx-auto">
           <div className="flex flex-wrap items-center ">
-            <Carousel loop="true" className="rounded-xl z-0">
+            <Carousel
+              autoplay="true"
+              autoplayDelay={3000}
+              loop="true"
+              className="rounded-xl z-0 mt-5"
+            >
               <div className="relative h-full w-full">
                 <img
                   src="https://d367pvje6v6lu5.cloudfront.net/pictures/images/000/121/251/big_slider_pic/2.png?1702301265"
@@ -134,7 +135,7 @@ export function UserHome() {
           </div>
         </div>
       </section>
-      <section className="-mt-32 bg-white px-4 pb-20 pt-10">
+      <section className="-mt-32  px-4 pb-20 pt-10 ">
         <div className="container mx-auto">
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {resService &&
@@ -149,7 +150,7 @@ export function UserHome() {
                   image_url,
                 }) => (
                   <div>
-                    <Card className="shadow-lg border shadow-gray-500/10 rounded-lg">
+                    <Card className="shadow-lg border shadow-gray-500/10 rounded-lg bg-[#F1E3D3]">
                       <CardHeader floated={false} className="relative h-56">
                         <img
                           alt="Card Image"
@@ -187,6 +188,7 @@ export function UserHome() {
                           </Typography>
                         </div>
                         <Button
+                          className="bg-[#690B22]"
                           onClick={() =>
                             navigate("/home/userservice", {
                               state: { service_id: service_id },
@@ -203,7 +205,7 @@ export function UserHome() {
           </div>
         </div>
       </section>
-      <section className="px-4 pt-10 pb-48  bg-white ">
+      <section className="px-4 pt-5 pb-48  ">
         <div className="container mx-auto">
           <PageTitle
             section="ประสบการณ์สูง ผ่านการฝึกอบรมมาโดยเฉพาะ"
@@ -218,20 +220,32 @@ export function UserHome() {
             {resStaff &&
               resStaff.length > 0 &&
               resStaff.map(({ staff_code, name, image_url, phone }, key) => (
-                <TeamCard
-                  key={key}
-                  img={`${apiLocal}${image_url}`}
-                  name={name}
-                  phone={phone}
-                />
+                <Card className="max-w-xs bg-[#F1E3D3]" key={key}>
+                  <Card.Body className="text-center">
+                    <div className="bg-white p-2 rounded-xl">
+                      <img
+                        className="rounded-lg"
+                        src={`${apiLocal}${image_url}`}
+                        alt="profile-picture"
+                      />
+                      <Typography className="mt-2" type="h5">
+                        ชื่อ : {name}
+                      </Typography>
+
+                      <Typography className="my-1 text-foreground">
+                        เบอร์โทรศัพท์ : {phone}
+                      </Typography>
+                    </div>
+                  </Card.Body>
+                </Card>
               ))}
           </div>
         </div>
       </section>
-      <div className="bg-white">
+      <div>
         <Footer />
       </div>
-    </>
+    </div>
   );
 }
 
