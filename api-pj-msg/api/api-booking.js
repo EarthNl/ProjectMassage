@@ -111,12 +111,7 @@ try {
 
 router.post('/get-list', async (req, res) => {
   try {
-      const [res_booking] = await db.query(`SELECT A.*
-         FROM booking AS A
-        
-        
-        
-        `);
+      const [res_booking] = await db.query(`SELECT * FROM booking WHERE status = pending OR status = confirmed`);
       if (res_booking && res_booking.length > 0) {
         res.send({
           data: res_booking,
