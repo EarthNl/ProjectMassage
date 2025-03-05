@@ -17,6 +17,7 @@ import { useLocation } from "react-router-dom";
 import { GetByIdServie } from "@/services/service.service";
 import { Form, Formik } from "formik";
 import {
+  GetListBookingService,
   InsertBookingService,
 } from "@/services/booking.service";
 
@@ -59,6 +60,27 @@ export function UserBooking() {
     }
     setResult(null);
   }, []);
+
+    useEffect(() => {
+      fetchDataBooking()
+    }, [])
+  
+    const fetchDataBooking = async () => {
+      const res = await GetListBookingService()
+      if(res){
+       const newEvents = res.map((item) => {
+         return {
+           title: item.status,
+           allDay: true,
+           start: moment(item.date).format('YYYY-MM-DD'),
+           end: moment(item.date).format('YYYY-MM-DD'),
+         };
+       });
+       setEvents(newEvents)
+       return 
+      }
+      setEvents([])
+    }
 
   // const {
   //   register,
