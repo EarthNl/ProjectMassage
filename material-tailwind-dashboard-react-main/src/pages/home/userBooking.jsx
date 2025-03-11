@@ -109,43 +109,43 @@ export function UserBooking() {
     handleOpen();
   };
 
-  const onSubmitBookingOg = async (formData) => {
-    const now = moment();
-    const selectedDateTime = moment(`${booking.date}T${booking.startTime}:00`);
+  // const onSubmitBookingOg = async (formData) => {
+  //   const now = moment();
+  //   const selectedDateTime = moment(`${booking.date}T${booking.startTime}:00`);
 
-    if (selectedDateTime.isBefore(now)) {
-      alert("ไม่สามารถจองวันที่หรือเวลาที่ผ่านมาแล้วได้");
-      return;
-    }
+  //   if (selectedDateTime.isBefore(now)) {
+  //     alert("ไม่สามารถจองวันที่หรือเวลาที่ผ่านมาแล้วได้");
+  //     return;
+  //   }
 
-    // const newBooking = {
-    //   title: `จองแล้ว: ${data.name}`,
-    //   start: selectedDateTime.toDate(),
-    //   end: selectedDateTime.add(1, "hour").toDate(),
-    // };
+  //   // const newBooking = {
+  //   //   title: `จองแล้ว: ${data.name}`,
+  //   //   start: selectedDateTime.toDate(),
+  //   //   end: selectedDateTime.add(1, "hour").toDate(),
+  //   // };
 
-    // const isBooked = events.some(
-    //   (event) => event.start.getTime() === newBooking.start.getTime(),
-    // );
-    // if (isBooked) {
-    //   alert("เวลานี้ถูกจองแล้ว");
-    //   return;
-    // }
+  //   // const isBooked = events.some(
+  //   //   (event) => event.start.getTime() === newBooking.start.getTime(),
+  //   // );
+  //   // if (isBooked) {
+  //   //   alert("เวลานี้ถูกจองแล้ว");
+  //   //   return;
+  //   // }
 
-    // setEvents([...events, newBooking]);
-    // setOpen(false);
-    const res = await InsertBookingService(formData);
-    if (res && res.status) {
-      switch (res.status) {
-        case "200":
-          setOpen(false);
-          return;
-        default:
-          console.log("", res.detail);
-          return;
-      }
-    }
-  };
+  //   // setEvents([...events, newBooking]);
+  //   // setOpen(false);
+  //   const res = await InsertBookingService(formData);
+  //   if (res && res.status) {
+  //     switch (res.status) {
+  //       case "200":
+  //         setOpen(false);
+  //         return;
+  //       default:
+  //         console.log("", res.detail);
+  //         return;
+  //     }
+  //   }
+  // };
   const onSubmitBooking = async (formData) => {
     const now = moment();
     const selectedDateTime = moment(`${booking.date}T${booking.startTime}:00`);
@@ -181,7 +181,77 @@ export function UserBooking() {
       console.log("เกิดข้อผิดพลาด: ", res?.detail);
     }
   };
-
+  // const onSubmitBookingMail = async (formData) => {
+  //   const now = moment();
+  //   const selectedDateTime = moment(`${booking.date}T${booking.startTime}:00`);
+  
+  //   if (selectedDateTime.isBefore(now)) {
+  //     alert("ไม่สามารถจองวันที่หรือเวลาที่ผ่านมาแล้วได้");
+  //     return;
+  //   }
+  
+  //   // ตรวจสอบว่ามีการจองในช่วงเวลานี้แล้วหรือไม่
+  //   const isBooked = events.some(
+  //     (event) => event.start.getTime() === selectedDateTime.toDate().getTime(),
+  //   );
+  //   if (isBooked) {
+  //     alert("เวลานี้ถูกจองแล้ว");
+  //     return;
+  //   }
+  
+  //   // บันทึกข้อมูลการจอง
+  //   const res = await InsertBookingService(formData);
+  //   if (res && res.status === "200") {
+  //     // เพิ่มข้อมูลการจองลงใน `events`
+  //     const newBooking = {
+  //       title: `จองแล้ว: ${formData.customer_name}`,
+  //       start: selectedDateTime.toDate(),
+  //       end: selectedDateTime
+  //         .add(result?.service_duration ?? 60, "minutes")
+  //         .toDate(),
+  //     };
+  
+  //     setEvents([...events, newBooking]); // อัปเดต state
+  //     setOpen(false);
+  
+  //     // **เรียก API ส่งอีเมล**
+  //     await sendEmailConfirmation(formData);
+  //   } else {
+  //     console.log("เกิดข้อผิดพลาด: ", res?.detail);
+  //   }
+  // };
+  // const sendEmailConfirmation = async (formData) => {
+  //   try {
+  //     const emailResponse = await fetch("/api/send-email", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({
+  //         to: formData.customer_email,
+  //         subject: "ยืนยันการจองบริการ",
+  //         text: `เรียนคุณ ${formData.customer_name},
+  
+  // คุณได้ทำการจองบริการ: ${formData.service_name}
+  // วันที่: ${formData.booking_date}
+  // เวลา: ${formData.booking_time}
+  
+  // ขอบคุณที่ใช้บริการของเรา!
+  
+  // ทีมงาน`,
+  //       }),
+  //     });
+  
+  //     if (emailResponse.ok) {
+  //       console.log("อีเมลถูกส่งเรียบร้อย");
+  //     } else {
+  //       console.error("เกิดข้อผิดพลาดในการส่งอีเมล");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error sending email:", error);
+  //   }
+  // };
+  
   return (
     <div className="p-4">
       <Card className="w-full">
